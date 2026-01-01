@@ -20,7 +20,7 @@
   background-color: var(--color-cyan-gray-light); /* 设置背景颜色为浅青灰色变量 */
 }
 .article-title {
-  font-family: "FZJZXS", "Ma Shan Zheng", serif; /* 设置字体族 */
+  font-family: "Ma Shan Zheng", "ZCOOL KuaiLe", "Noto Serif SC", serif; /* 设置字体族 */
   font-size: 2.2rem; /* 设置字体大小为2.2rem */
   color: var(--color-cyan-gray); /* 设置字体颜色为青灰色变量 */
   letter-spacing: 2px; /* 设置字间距为2px */
@@ -148,7 +148,7 @@
   margin-bottom: 40px; /* 设置下外边距为40px */
 }
 .section-title {
-  font-family: "FZJZXS", "Noto Serif SC", serif; /* 设置字体族 */
+  font-family: "Ma Shan Zheng", "Noto Serif SC", serif; /* 设置字体族 */
   font-size: 1.8rem; /* 设置字体大小为1.8rem */
   color: var(--color-cyan-gray); /* 设置字体颜色为青灰色变量 */
   margin-bottom: 30px; /* 设置下外边距为30px */

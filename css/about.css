@@ -149,7 +149,7 @@
 }
 .cultivation-level {
   margin-top: 15px; /* 设置上外边距为15px */
-  font-family: "FZJZXS", "Noto Serif SC", serif; /* 设置字体族 */
+  font-family: "Ma Shan Zheng", "Noto Serif SC", serif; /* 设置字体族 */
   font-size: 1.2rem; /* 设置字体大小为1.2rem */
   color: var(--color-cyan-gray); /* 设置字体颜色为青灰色变量 */
   letter-spacing: 2px; /* 设置字间距为2px */
@@ -169,7 +169,7 @@
   justify-content: center;
 }
 .section-title {
-  font-family: "FZJZXS", "Noto Serif SC", serif; /* 设置字体族 */
+  font-family: "Ma Shan Zheng", "Noto Serif SC", serif; /* 设置字体族 */
   font-size: 1.8rem; /* 设置字体大小为1.8rem */
   color: var(--color-cyan-gray); /* 设置字体颜色为青灰色变量 */
   margin-bottom: 20px; /* 设置下外边距为20px */

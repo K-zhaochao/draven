@@ -59,13 +59,8 @@
   src: url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap"); /* 字体资源URL */
   font-display: swap; /* 加载时先显示 fallback 字体，不空白 */
 }
-/* 引入方正字迹-行书，用于标题显示 */
-@font-face {
-  font-family: "FZJZXS"; /* 方正字迹-行书（标题，玄幻飘逸感） */
-  src: url("../fonts/FZJZXS.ttf") format("truetype"); /* 本地字体文件（后面教你下载） */
-  fallback: "ZCOOL KuaiLe", "Ma Shan Zheng", serif; /* 备选行书字体 */
-  font-display: swap; /* 字体加载策略 */
-}
+/* 已删除本地字体文件 FZJZXS.ttf（如果需要可替换为在线或其他本地字体） */
+/* 推荐回退顺序：Ma Shan Zheng -> ZCOOL KuaiLe -> Noto Serif SC -> serif */
 
 /* 3. 全局样式重置 + 基础设置 */
 /* 重置所有元素的内外边距和盒模型 */
@@ -168,7 +163,7 @@ body {
 
 /* 导航栏标题样式 */
 .navbar-brand {
-  font-family: "FZJZXS", "ZCOOL KuaiLe", serif; /* 标题用行书 */
+  font-family: "Ma Shan Zheng", "ZCOOL KuaiLe", "Noto Serif SC", serif; /* 标题用行书及备选 */
   font-size: 1.8rem; /* 字体大小 */
   color: var(--color-nav-text) !important; /* 文字颜色 */
   letter-spacing: 2px; /* 字间距拉开，更有古风感 */
@@ -275,7 +270,7 @@ body {
 }
 /* Banner标题样式 */
 .banner-title {
-  font-family: "FZJZXS", "ZCOOL KuaiLe", serif; /* 字体 */
+  font-family: "Ma Shan Zheng", "ZCOOL KuaiLe", "Noto Serif SC", serif; /* 字体 */
   font-size: 2.5rem; /* 参考 tools 页面字体大小 */
   color: var(--color-cyan-gray); /* 文字颜色 */
   letter-spacing: 3px; /* 调整字间距 */
@@ -307,7 +302,7 @@ body {
 }
 /* 文章标题样式 */
 .article-title {
-  font-family: "FZJZXS", "Noto Serif SC", serif; /* 字体 */
+  font-family: "Ma Shan Zheng", "Noto Serif SC", serif; /* 字体 */
   font-size: 1.6rem; /* 字体大小 */
   color: var(--color-cyan-gray); /* 文字颜色 */
   margin-bottom: 15px; /* 底部外边距 */
@@ -373,7 +368,7 @@ body {
 }
 /* 侧边栏标题样式 */
 .sidebar-title {
-  font-family: "FZJZXS", "Noto Serif SC", serif; /* 字体 */
+  font-family: "Ma Shan Zheng", "Noto Serif SC", serif; /* 字体 */
   font-size: 1.4rem; /* 字体大小 */
   color: var(--color-cyan-gray); /* 文字颜色 */
   margin-bottom: 20px; /* 底部外边距 */
@@ -749,7 +744,7 @@ body {
 .poetic-text {
   position: absolute;
   display: block;
-  font-family: "FZJZXS", "Noto Serif SC", serif; /* 优先使用行书 */
+  font-family: "Ma Shan Zheng", "Noto Serif SC", serif; /* 优先使用行书 */
   writing-mode: vertical-rl; /* 竖排文字，更有古籍感 */
   text-orientation: upright;
   white-space: nowrap;

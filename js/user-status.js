@@ -28,17 +28,8 @@ function updateUserStatus() {
         `;
     navbarNav.insertAdjacentHTML("beforeend", userHtml);
   } else {
-    // 未登录状态
-    // 检查当前页面是否在 articles 目录下（通过路径判断）
-    const isArticlePage = window.location.pathname.includes("/articles/");
-    const loginPath = isArticlePage ? "../login.html" : "login.html";
-
-    const loginHtml = `
-            <li class="nav-item" id="user-status-item">
-                <a class="nav-link py-2 px-3" href="${loginPath}">登录/注册</a>
-            </li>
-        `;
-    navbarNav.insertAdjacentHTML("beforeend", loginHtml);
+    // 未登录状态：不在导航中显示登录/注册或未登录提示（保持导航简洁）
+    // 仅确保之前可能存在的用户状态项被移除（上方已有移除逻辑）
   }
 }
 
@@ -48,10 +39,7 @@ function logout() {
     localStorage.removeItem("user_nickname");
     updateUserStatus();
 
-    // 检查当前页面是否在 articles 目录下
-    const isArticlePage = window.location.pathname.includes("/articles/");
-    const loginPath = isArticlePage ? "../login.html" : "login.html";
-
-    window.location.href = loginPath;
+    // 登录功能已移除，退出后返回首页
+    window.location.href = "index.html";
   }
 }

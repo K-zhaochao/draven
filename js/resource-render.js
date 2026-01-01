@@ -55,8 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
       )
       .join("");
 
-    // 绑定卡片点击事件
-    bindCardEvents();
+    // 注意：使用事件代理绑定，避免在每次渲染时重复添加监听器（见 bindCardEvents 实现）
   }
 
   // 3. 绑定筛选按钮事件
@@ -78,17 +77,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 4. 绑定卡片点击事件（弹出自定义Modal）
+  // 4. 使用事件代理绑定卡片点击事件（减少大量事件监听器，提升性能）
   function bindCardEvents() {
-    const cards = document.querySelectorAll(".resource-card");
-    cards.forEach((card) => {
-      card.addEventListener("click", function () {
-        const id = this.getAttribute("data-id");
-        const data = resourcesData.resources.find((r) => r.id === id);
-        if (data) {
-          showCustomModal(data);
-        }
-      });
+    gridContainer.addEventListener("click", function (e) {
+      const card = e.target.closest(".resource-card");
+      if (!card) return;
+      const id = card.getAttribute("data-id");
+      const data = resourcesData.resources.find((r) => r.id === id);
+      if (data) showCustomModal(data);
     });
   }
 
@@ -104,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="custom-modal-overlay" id="customResourceModal">
                 <div class="custom-modal-container">
                     <div class="modal-header border-0">
-                        <h5 class="modal-title" style="font-family: 'FZJZXS', serif; font-size: 1.5rem; color: var(--color-cyan-gray);"></h5>
+              <h5 class="modal-title" style="font-family: 'Ma Shan Zheng', serif; font-size: 1.5rem; color: var(--color-cyan-gray);"></h5>
                         <button type="button" class="close-custom-modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -204,7 +200,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 300);
   }
 
-  // 初始化
-  renderCategories();
-  renderResources();
+  // 初始化：在空闲时间渲染，避免阻塞首屏渲染
+  const schedule =
+    window.requestIdleCallback ||
+    function (fn) {
+      return setTimeout(fn, 50);
+    };
+  // 先绑定一次事件代理
+  bindCardEvents();
+
+  schedule(() => {
+    renderCategories();
+    renderResources();
+  });
 });
