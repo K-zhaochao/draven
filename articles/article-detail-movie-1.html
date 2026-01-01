@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 网站图标（适配电脑浏览器、标签页） -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
+    <!-- 适配苹果设备（iPhone/iPad 桌面图标） -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+
+    <!-- 适配Android设备 -->
+    <link rel="manifest" href="android-icon-48x48.png">
+    <meta name="msapplication-TileColor" content="#4A6F7C">
+    <meta name="theme-color" content="#4A6F7C">
+    <meta name="description" content="《教父》观后感 - 闲者杂谈文章详情。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="../js/theme-init.js"></script>
+    <script src="../js/user-status.js"></script>
+    <title>闲者杂谈</title>
+    <!-- 引入本地Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <!-- 引入全局样式 -->
+    <link rel="stylesheet" href="../css/main.css">
+    <!-- 引入局部样式 -->
+    <style>
+        /* 优化后的媒体样式 */
+        .media-container {
+            margin: 30px auto;
+            text-align: center;
+            max-width: 800px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* 夜间模式适配 */
+        [data-theme="dark"] .media-container {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .media-container img,
+        .media-container video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .audio-player {
+            width: 100%;
+            max-width: 600px;
+            /* 限制音频播放器宽度，更美观 */
+            margin-top: 5px;
+            outline: none;
+        }
+
+        .media-caption {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            color: #666;
+            font-family: "楷体", "KaiTi", serif;
+            /* 使用楷体增加古风感 */
+        }
+
+        [data-theme="dark"] .media-caption {
+            color: #aaa;
+        }
+
+        /* 移动端适配优化 */
+        @media (max-width: 768px) {
+            .media-container {
+                padding: 10px;
+                /* 减小内边距 */
+                margin: 20px auto;
+                /* 减小外边距 */
+                width: 100%;
+                /* 确保宽度占满 */
+            }
+
+            .media-container video {
+                width: 100%;
+                /* 强制视频宽度自适应 */
+                height: auto;
+            }
+        }
+    </style>
+    <!-- 引入文章详情页专属样式 -->
+    <link rel="stylesheet" href="../css/article-detail.css">
+    <!-- 备选古风字体 CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC&display=swap"
+        rel="stylesheet">
+    <!-- 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <!-- 1. 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-nav-dark">
+        <div class="container px-3">
+            <a class="navbar-brand" href="../index.html">
+                <span style="font-family: 'Ma Shan Zheng', serif; letter-spacing: 2px;">闲者杂谈</span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-toggle="collapse"
+                data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="切换导航">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- 移动端关闭按钮 -->
+                <div class="d-lg-none text-right">
+                    <button class="btn btn-link text-white p-0" type="button" data-toggle="collapse"
+                        data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="关闭导航">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../index.html">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../articles.html">文章列表</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../about.html">关于我</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../study.html">学习资料</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../tools.html">实用工具</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../ask.html">问道</a>
+                    </li>
+                </ul>
+                <div class="theme-toggle-wrapper ml-lg-3 mt-3 mt-lg-0">
+                    <button type="button" class="theme-toggle-btn" aria-label="切换夜间模式">🌙 夜间</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. 页面核心内容 -->
+    <div class="container article-container">
+        <!-- 文章标题+信息区 -->
+        <div class="article-header">
+            <h1 class="article-title">《教父》观后感：权力的游戏与男人的圣经</h1>
+            <div class="article-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar-alt meta-icon"></i>
+                    <span>发布时间：2025-11-23</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-user meta-icon"></i>
+                    <span>作者：闲云野鹤</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-eye meta-icon"></i>
+                    <span>浏览人次：<span id="view-count">0</span></span>
+                </div>
+            </div>
+            <div class="tag-list">
+                <span class="tag-item">影视悟道</span>
+                <span class="tag-item">认知见解</span>
+            </div>
+        </div>
+
+        <!-- 文章正文区 -->
+        <div class="article-content">
+            <div class="article-seal"></div>
+
+            <!-- 背景音乐部分 -->
+            <div class="content-text">
+                <p>在阅读本文之前，不妨先播放这首经典的《The Godfather (Love Theme)》，让 Nino Rota 的旋律带我们回到那个充满优雅与暴力的西西里。</p>
+                <div class="media-container">
+                    <p class="media-caption" style="margin-top: 0; margin-bottom: 10px;">🎵 点击播放背景音乐：The Godfather (Love
+                        Theme)</p>
+                    <audio controls class="audio-player">
+                        <source src="../music/godfather_theme.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+
+            <div class="content-text">
+                有人说，《教父》是男人的圣经。初看时，被其中的黑帮火拼、权谋算计所吸引；再看时，才读懂了其中关于家庭、责任与成长的沉重话题。弗朗西斯·福特·科波拉用史诗般的镜头语言，讲述了柯里昂家族的兴衰，也刻画了迈克尔·柯里昂从一个理想主义青年到冷酷黑手党教父的蜕变。
+            </div>
+
+            <!-- 图片部分 -->
+            <div class="media-container">
+                <img src="../images/godfather.png" alt="教父经典剧照">
+                <p class="media-caption">维托·柯里昂：我会给他一个无法拒绝的理由。</p>
+            </div>
+
+            <div class="content-text">
+                老教父维托·柯里昂的优雅与威严令人折服。他不仅仅是一个黑帮头目，更是一个守护者。他建立了自己的秩序，在法律无法触及的灰色地带，为弱者提供庇护，为家族谋求生存。他的名言“不花时间陪家人的男人，不是真正的男人”，道出了他心中最柔软也最坚硬的底线。
+            </div>
+
+            <div class="content-quote">
+                “伟大的人不是生下来就伟大的，而是在成长过程中显示其伟大的。”
+            </div>
+
+            <div class="content-text">
+                然而，整部电影最震撼人心的，是迈克尔的转变。起初，他试图逃离家族的阴影，参军、恋爱，想要过普通人的生活。但命运的齿轮转动，父亲遇刺、兄长惨死，家族的重担最终落在了他的肩上。他不得不放弃曾经的理想，穿上西装，拿起枪，变成了他曾经最不想成为的人。
+            </div>
+
+            <!-- 视频部分 -->
+            <div class="content-text">
+                <p>下面的片段是电影中最经典的“洗礼”蒙太奇。一边是神圣的教堂洗礼，迈克尔作为教父承诺弃绝撒旦；另一边是血腥的清洗行动，柯里昂家族的敌人被逐一铲除。神圣与罪恶，新生与死亡，在这一刻交织，构成了影史上最震撼的篇章。
+                </p>
+                <div class="media-container">
+                    <video controls style="width: 100%; display: block;">
+                        <source src="../video/godfather_baptism.mp4" type="video/mp4">
+                        您的浏览器不支持 video 标签。
+                    </video>
+                    <p class="media-caption">经典片段：洗礼与清洗</p>
+                </div>
+            </div>
+
+            <div class="content-text">
+                迈克尔的孤独是注定的。为了守护家族，他杀死了敌人，杀死了背叛者，甚至杀死了自己的亲人。当大门缓缓关闭，凯看着丈夫接受手下的亲吻礼，那一刻，迈克尔彻底成为了新的教父，也彻底关上了通往普通人幸福的大门。
+            </div>
+
+            <div class="content-text">
+                《教父》不仅仅是一部黑帮片，它是一部关于权力的寓言，也是一部关于人性的悲剧。它告诉我们，在这个世界上，为了守护珍视的东西，有时候我们必须付出惨痛的代价。
+            </div>
+        </div>
+
+        <!-- 留言板区域 -->
+        <div class="comment-section">
+            <h2 class="section-title">同道留言</h2>
+            <form class="comment-form" id="commentForm">
+                <div class="form-group">
+                    <label for="commentName" class="form-label">道友名号</label>
+                    <input type="text" class="form-control" id="commentName" placeholder="请留下你的名号" required>
+                </div>
+                <div class="form-group">
+                    <label for="commentContent" class="form-label">留言内容</label>
+                    <textarea class="form-control" id="commentContent" rows="4" placeholder="分享你的观后感"
+                        required></textarea>
+                </div>
+                <button type="submit" class="comment-btn">提交留言</button>
+            </form>
+            <h3 class="section-title" style="font-size: 1.5rem;">留言列表</h3>
+            <ul class="comment-list" id="commentList">
+                <li class="comment-item">
+                    <div class="comment-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="comment-name">影迷小张</div>
+                    <div class="comment-time">2025-11-23 14:20</div>
+                    <div class="comment-content">经典的洗礼蒙太奇，每次看都起鸡皮疙瘩！迈克尔的眼神变化太绝了。</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 相关推荐区域 -->
+        <div class="related-section">
+            <h2 class="section-title">相关功法推荐</h2>
+            <div class="related-grid">
+                <div class="related-card">
+                    <a href="article-detail-movie-2.html">
+                        <img src="../images/godfather.png" alt="《大爱仙尊》" class="related-img">
+                        <div class="related-content">
+                            <h3 class="related-title">《大爱仙尊》观后感：利己与利他的玄幻哲学</h3>
+                            <p class="related-desc">方源的“利己主义”与传统修仙的“利他正道”形成鲜明对比——究竟是“人不为己天诛地灭”，还是“大道之行也，天下为公”？...</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="related-card">
+                    <a href="article-detail-life-1.html">
+                        <img src="../images/related-3.png" alt="周末登山" class="related-img">
+                        <div class="related-content">
+                            <h3 class="related-title">周末登山有感：人生如登山，慢即是快</h3>
+                            <p class="related-desc">起初急于登顶，一路快步前行，忽略了沿途的风景...人生如登山，不必急于求成...</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="related-card">
+                    <a href="article-detail-insight-1.html">
+                        <img src="../images/related-1.png" alt="灵根设定" class="related-img">
+                        <div class="related-content">
+                            <h3 class="related-title">玄幻小说中的“灵根”设定：映射现实中的天赋与努力</h3>
+                            <p class="related-desc">几乎所有玄幻小说都有“灵根”设定——单灵根天赋异禀，多灵根资质平庸...这像极了现实中的“天赋论”...</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">闲者杂谈 · 闲敲棋子落灯花，漫谈江湖与尘沙</p>
+            <p class="footer-copyright">闲云野鹤 版权所有</p>
+            <p class="footer-copyright"><a
+                    href="https://beian.miit.gov.cn/?spm=5176.30371578.J_4NWEMkQ5nDwOgLi8EJmHs.60.4207154anbiqMl#/Integrated/index"
+                    style="color:white">© 2025 黔 2025056580</a></p>
+        </div>
+    </footer>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/theme-toggle.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const viewCountElem = document.getElementById('view-count');
+            let viewCount = localStorage.getItem('articleViewCount_godfather') || 0;
+            viewCount++;
+            viewCountElem.textContent = viewCount;
+            localStorage.setItem('articleViewCount_godfather', viewCount);
+
+            const commentForm = document.getElementById('commentForm');
+            const commentList = document.getElementById('commentList');
+            const commentName = document.getElementById('commentName');
+            const commentContent = document.getElementById('commentContent');
+
+            commentForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const name = commentName.value.trim();
+                const content = commentContent.value.trim();
+
+                if (!name || !content) {
+                    alert('道友名号和留言内容不可为空！');
+                    return;
+                }
+
+                const now = new Date();
+                const timeStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+                const newComment = document.createElement('li');
+                newComment.className = 'comment-item';
+                newComment.innerHTML = `
+          <div class="comment-avatar"><i class="fas fa-user"></i></div>
+          <div class="comment-name">${name}</div>
+          <div class="comment-time">${timeStr}</div>
+          <div class="comment-content">${content}</div>
+        `;
+
+                commentList.insertBefore(newComment, commentList.firstChild);
+                commentName.value = '';
+                commentContent.value = '';
+                alert('留言成功！');
+            });
+        });
+    </script>
+</body>
+
+</html>

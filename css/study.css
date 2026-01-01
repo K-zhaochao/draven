@@ -1,0 +1,315 @@
+/* 1. 页面标题（延续古风卷轴标题样式） */
+.resources-header {
+  margin: 30px 0 40px; /* 设置上下外边距30px/40px，左右0 */
+  text-align: center; /* 设置文本居中对齐 */
+  position: relative; /* 设置相对定位 */
+  padding-bottom: 15px; /* 设置下内边距为15px */
+}
+.resources-header::after {
+  content: ""; /* 设置伪元素内容为空 */
+  position: absolute; /* 设置绝对定位 */
+  bottom: 0; /* 距离底部0 */
+  left: 50%; /* 距离左侧50% */
+  transform: translateX(-50%); /* 通过变换水平居中 */
+  width: 80px; /* 设置宽度为80px */
+  height: 2px; /* 设置高度为2px */
+  background-color: var(--color-cyan-gray-light); /* 设置背景颜色为浅青灰色变量 */
+}
+.resources-title {
+  font-family: "FZJZXS", "ZCOOL KuaiLe", serif; /* 设置字体族 */
+  font-size: 2.5rem; /* 设置字体大小为2.5rem */
+  color: var(--color-cyan-gray); /* 设置字体颜色为青灰色变量 */
+  letter-spacing: 3px; /* 设置字间距为3px */
+}
+
+/* 2. 分类筛选栏（手风琴重叠风格，与文章列表页统一） */
+.resources-filter {
+  display: flex; /* 设置为弹性盒子布局 */
+  flex-wrap: wrap; /* 设置允许换行 */
+  justify-content: center; /* 设置主轴居中对齐 */
+  margin-bottom: 40px; /* 增加底部间距 */
+  padding: 20px 0; /* 增加内边距 */
+  background: transparent; /* 透明背景 */
+  border: none; /* 去除边框 */
+  box-shadow: none; /* 去除阴影 */
+  overflow: visible; /* 允许放大溢出 */
+}
+.filter-btn {
+  position: relative; /* 相对定位 */
+  margin-right: -15px; /* 核心：负边距造成重叠 */
+  padding: 10px 30px; /* 增加内边距 */
+  background-color: var(--color-rice-white-dark); /* 必须有背景色遮挡 */
+  border: 1px solid var(--color-border); /* 边框 */
+  box-shadow: -4px 0 8px rgba(0,0,0,0.1); /* 左侧阴影，体现层叠感 */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* 弹性过渡 */
+  z-index: 1; /* 默认层级 */
+  border-radius: 8px; /* 圆角 */
+  color: var(--color-text-light); /* 默认文字颜色 */
+  font-family: "Noto Serif SC", serif; /* 字体 */
+  font-size: 1rem; /* 字体大小 */
+  cursor: pointer; /* 手型光标 */
+}
+/* 按钮悬停与激活效果 */
+.filter-btn:hover,
+.filter-btn.active {
+  margin-right: 10px; /* 展开间距 */
+  margin-left: 10px; /* 左右都推开一点 */
+  z-index: 10; /* 浮起 */
+  transform: translateY(-5px) scale(1.1); /* 放大 */
+  background-color: var(--color-cyan-gray); /* 激活背景色 */
+  color: var(--color-rice-white); /* 激活文字色 */
+  box-shadow: 0 10px 20px rgba(74, 111, 124, 0.3); /* 激活阴影 */
+  border-color: var(--color-cyan-gray); /* 激活边框色 */
+}
+.filter-btn:focus {
+  outline: none; /* 去除默认轮廓线 */
+}
+
+/* 移动端适配：取消手风琴效果，避免布局错乱 */
+@media (max-width: 768px) {
+  .filter-btn {
+    margin: 5px; /* 统一间距，取消负边距 */
+  }
+  .filter-btn:hover,
+  .filter-btn.active {
+    margin: 5px; /* 保持间距不变，防止挤压 */
+    transform: scale(1.05); /* 仅轻微放大，不位移 */
+  }
+}
+
+/* 3. 资源卡片网格布局（响应式） */
+.resources-grid {
+  display: grid; /* 设置为网格布局 */
+  grid-template-columns: repeat(4, 1fr); /* 电脑端4列，每列等宽 */
+  gap: 25px; /* 设置网格间距为25px */
+  margin-bottom: 50px; /* 设置下外边距为50px */
+}
+/* 平板端2列 */
+@media (max-width: 992px) {
+  .resources-grid {
+    grid-template-columns: repeat(2, 1fr); /* 设置2列，每列等宽 */
+  }
+}
+/* 移动端1列 */
+@media (max-width: 768px) {
+  .resources-grid {
+    grid-template-columns: 1fr; /* 设置1列 */
+  }
+}
+
+/* 4. 资源卡片样式（新版 - 极简+悬停交互） */
+.resource-card {
+  background-color: var(--color-rice-white-dark);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* 为悬停遮罩定位 */
+  cursor: pointer;
+}
+
+/* 悬停效果：上浮 */
+.resource-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(74, 111, 124, 0.2);
+  border-color: var(--color-cyan-gray-light);
+}
+
+/* 图标区域 */
+.card-icon-wrapper {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+  color: var(--color-cyan-gray);
+  transition: transform 0.3s ease;
+}
+
+.resource-card:hover .card-icon-wrapper {
+  transform: scale(1.05);
+}
+
+/* 卡片内容区域 */
+.card-content {
+  padding: 15px 20px 20px;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-family: "FZJZXS", "Noto Serif SC", serif;
+  font-size: 1.4rem;
+  color: var(--color-cyan-gray);
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+/* 标签组 */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.card-tag {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  background-color: rgba(74, 111, 124, 0.1);
+  padding: 4px 10px;
+  border-radius: 20px;
+  transition: all 0.2s;
+}
+
+.resource-card:hover .card-tag {
+  background-color: var(--color-cyan-gray);
+  color: var(--color-rice-white);
+}
+
+/* 悬停遮罩层 - 酷炫交互核心 */
+.card-hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(74, 111, 124, 0.9); /* 青灰色半透明遮罩 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(2px); /* 毛玻璃效果 */
+}
+
+.resource-card:hover .card-hover-overlay {
+  opacity: 1;
+}
+
+.overlay-btn {
+  padding: 10px 25px;
+  border: 2px solid var(--color-rice-white);
+  color: var(--color-rice-white);
+  font-family: "Noto Serif SC", serif;
+  font-size: 1rem;
+  border-radius: 30px;
+  background: transparent;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.resource-card:hover .overlay-btn {
+  transform: translateY(0);
+}
+
+.overlay-btn:hover {
+  background: var(--color-rice-white);
+  color: var(--color-cyan-gray);
+}
+
+/* 5. 模态框样式优化 */
+.modal-content {
+  background-color: var(--color-rice-white);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+
+.modal-header {
+  background-color: var(--color-rice-white-dark);
+  border-bottom: 1px solid var(--color-border);
+  padding: 20px 30px;
+}
+
+.modal-title {
+  font-family: "FZJZXS", "Noto Serif SC", serif;
+  color: var(--color-cyan-gray);
+  font-size: 1.8rem;
+}
+
+.modal-body {
+  padding: 30px;
+  font-family: "Noto Serif SC", serif;
+  color: var(--color-text-dark);
+}
+
+/* 模态框内的标签 */
+.modal-tag {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: var(--color-cyan-gray);
+  border: 1px solid var(--color-cyan-gray);
+  padding: 5px 15px;
+  border-radius: 20px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+/* 推荐理由板块 */
+.recommend-section {
+  margin-top: 25px;
+  padding: 20px;
+  background-color: rgba(74, 111, 124, 0.05);
+  border-left: 4px solid var(--color-cyan-gray);
+  border-radius: 0 8px 8px 0;
+}
+
+.recommend-title {
+  font-weight: bold;
+  color: var(--color-cyan-gray);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.recommend-title i {
+  margin-right: 8px;
+}
+
+.recommend-text {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--color-text-dark);
+  font-style: italic;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--color-border);
+  padding: 20px 30px;
+}
+
+.btn-primary {
+  background-color: var(--color-cyan-gray);
+  border-color: var(--color-cyan-gray);
+  padding: 8px 25px;
+  border-radius: 25px;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-cyan-gray-dark);
+  border-color: var(--color-cyan-gray-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(74, 111, 124, 0.3);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-text-light);
+  border: 1px solid var(--color-border);
+  border-radius: 25px;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-rice-white-dark);
+  color: var(--color-text-dark);
+}

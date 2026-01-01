@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 网站图标（适配电脑浏览器、标签页） -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
+    <!-- 适配苹果设备（iPhone/iPad 桌面图标） -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+
+    <!-- 适配Android设备 -->
+    <link rel="manifest" href="android-icon-48x48.png"> <!-- 压缩包中自带，无需修改 -->
+    <meta name="msapplication-TileColor" content="#4A6F7C"> <!-- 青黛色，与图标背景一致 -->
+    <meta name="theme-color" content="#4A6F7C"> <!-- 浏览器地址栏颜色，适配移动端 -->
+    <meta name="description" content="闲者杂谈文章列表 - 汇集Java修仙、影视悟道、工具宝库等各类杂谈。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="js/theme-init.js"></script>
+    <script src="js/user-status.js"></script>
+    <title>闲者杂谈</title>
+    <!-- 引入本地Bootstrap CSS（替换CDN） -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <!-- 引入全局样式（字体、色调、导航栏等） -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- 引入列表页专属样式 -->
+    <link rel="stylesheet" href="css/articles.css">
+    <!-- 备选古风字体 CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- 1. 导航栏（和首页一致） -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-nav-dark">
+        <div class="container px-3"> <!-- 移动端添加水平内边距，避免贴边 -->
+            <a class="navbar-brand" href="index.html">
+                <span style="font-family: 'Ma Shan Zheng', serif; letter-spacing: 2px;">闲者杂谈</span>
+            </a>
+            <!-- 折叠按钮：确保data-target与折叠容器ID一致 -->
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-toggle="collapse"
+                data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="切换导航">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- 折叠菜单容器：添加移动端样式优化 -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- 移动端关闭按钮 -->
+                <div class="d-lg-none text-right">
+                    <button class="btn btn-link text-white p-0" type="button" data-toggle="collapse"
+                        data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="关闭导航">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <ul class="navbar-nav ml-auto"> <!-- 移动端减小间距，避免拥挤 -->
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="index.html">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="articles.html">文章列表</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="about.html">关于我</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="study.html">学习资料</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="tools.html">实用工具</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="ask.html">问道</a>
+                    </li>
+                </ul>
+                <div class="theme-toggle-wrapper ml-lg-3 mt-3 mt-lg-0">
+                    <button type="button" class="theme-toggle-btn" aria-label="切换夜间模式">🌙 夜间</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. 页面标题（列表页专属） -->
+    <div class="container">
+        <div class="articles-header">
+            <h1 class="articles-title">杂谈合集</h1>
+        </div>
+
+        <!-- 3. 搜索框与分类筛选栏 -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-6">
+                <form id="article-search-form" class="d-flex align-items-center">
+                    <input type="text" id="article-search-input" class="form-control flex-grow-1 me-2"
+                        placeholder="输入关键词搜索文章..."
+                        style="width: auto; border-radius: 20px; border: 1px solid var(--color-cyan-gray-light);">
+                    <button type="submit" class="search-btn" style="width: auto; margin-top: 0;">搜索</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <button class="filter-btn active">全部杂谈</button>
+            <button class="filter-btn">学习分享</button>
+            <button class="filter-btn">认知见解</button>
+            <button class="filter-btn">科技世界</button>
+            <button class="filter-btn">生活随笔</button>
+            <button class="filter-btn">影视悟道</button>
+        </div>
+
+        <!-- 4. 文章列表主体（给每个article-item添加data-category属性，对应分类） -->
+        <div class="articles-list">
+            <!-- 新增文章0：影视悟道 -->
+            <div class="article-item" data-category="影视悟道">
+                <div class="article-tags">
+                    <a href="#" class="badge-custom">影视悟道</a>
+                </div>
+                <h3 class="article-item-title"><a href="articles/article-detail-movie-1.html">《教父》观后感：权力的游戏与男人的圣经</a>
+                </h3>
+                <div class="article-item-meta">
+                    <span>发布时间：2025-11-23</span>
+                    <span>阅读：208</span>
+                    <span>标签：影视悟道 · 认知见解</span>
+                </div>
+                <p class="article-item-excerpt">
+                    有人说，《教父》是男人的圣经。初看时，被其中的黑帮火拼、权谋算计所吸引；再看时，才读懂了其中关于家庭、责任与成长的沉重话题。弗朗西斯·福特·科波拉用史诗般的镜头语言，讲述了柯里昂家族的兴衰，也刻画了迈克尔·柯里昂从一个理想主义青年到冷酷黑手党教父的蜕变。本文包含经典剧照、视频片段及原声音乐赏析。
+                </p>
+                <a href="articles/article-detail-movie-1.html" class="read-more-btn">阅读全文</a>
+            </div>
+
+            <!-- 文章1：Java修仙 -->
+            <div class="article-item" data-category="学习分享">
+                <div class="article-tags">
+                    <a href="#" class="badge-custom">学习分享</a>
+                </div>
+                <h3 class="article-item-title"><a href="articles/article-detail-study-1.html">Java修仙之路：从入门到渡劫（基础语法篇）</a>
+                </h3>
+                <div class="article-item-meta">
+                    <span>发布时间：2025-11-20</span>
+                    <span>阅读：128</span>
+                    <span>标签：学习分享 · 科技世界</span>
+                </div>
+                <p class="article-item-excerpt">
+                    编程之道，如修仙练气。Java作为江湖第一编程语言，其语法如同修仙功法的基础心法——变量为灵根，循环为吐纳，条件判断为趋吉避凶，方法为招式组合。本文从变量定义、数据类型、运算符讲起，再到循环结构、条件语句，循序渐进带你夯实Java灵根，为后续面向对象、集合框架等“高阶功法”铺路，避免入门即走火入魔。
+                </p>
+                <a href="articles/article-detail-study-1.html" class="read-more-btn">阅读全文</a>
+            </div>
+
+            <!-- 文章2：影视悟道 -->
+            <div class="article-item" data-category="影视悟道">
+                <div class="article-tags">
+                    <a href="#" class="badge-custom">影视悟道</a>
+                </div>
+                <h3 class="article-item-title"><a href="articles/article-detail-movie-2.html">《大爱仙尊》观后感：利己与利他的玄幻哲学</a>
+                </h3>
+                <div class="article-item-meta">
+                    <span>发布时间：2025-11-15</span>
+                    <span>阅读：96</span>
+                    <span>标签：影视悟道 · 认知见解</span>
+                </div>
+                <p class="article-item-excerpt">
+                    看罢《大爱仙尊》，心中久久不能平静。方源的“利己主义”与传统修仙的“利他正道”形成鲜明对比——究竟是“人不为己天诛地灭”，还是“大道之行也，天下为公”？玄幻世界的设定往往映射现实，方源为了长生不死、逆转命运，不惜一切代价，甚至牺牲他人；而正道修士坚守“天道”，却也常常陷入迂腐。本文从故事内核出发，聊聊现实中的处世哲学：利己与利他并非绝对对立，如何在坚守本心的同时，实现自我价值与他人共赢。
+                </p>
+                <a href="articles/article-detail-movie-2.html" class="read-more-btn">阅读全文</a>
+            </div>
+
+            <!-- 文章3：工具宝库 -->
+            <div class="article-item" data-category="科技世界">
+                <div class="article-tags">
+                    <a href="#" class="badge-custom">科技世界</a>
+                </div>
+                <h3 class="article-item-title"><a href="articles/article-detail-tech-1.html">10个程序员必备的“修仙工具”，效率飞升！</a>
+                </h3>
+                <div class="article-item-meta">
+                    <span>发布时间：2025-11-10</span>
+                    <span>阅读：156</span>
+                    <span>标签：科技世界 · 学习分享</span>
+                </div>
+                <p class="article-item-excerpt">
+                    修仙路上，神兵利器不可或缺；编程途中，高效工具事半功倍。本文整理了10个亲测好用的工具——从代码编辑器（VS
+                    Code+古风主题）到文档管理（Notion+Obsidian双剑合璧），从调试神器（Postman+Charles）到效率插件（Axure+MindMaster），每个工具都附使用技巧，帮你少走弯路，快速提升“修为”。无论是Java开发者还是前端小白，这些工具都能让你的编程之路更顺畅，如同修仙者获得了“飞行法器”，省时省力。
+                </p>
+                <a href="articles/article-detail-tech-1.html" class="read-more-btn">阅读全文</a>
+            </div>
+
+            <!-- 文章4：学习资料 -->
+            <div class="article-item" data-category="学习分享">
+                <div class="article-tags">
+                    <a href="#" class="badge-custom">学习分享</a>
+                </div>
+                <h3 class="article-item-title"><a
+                        href="articles/article-detail-study-2.html">前端小白如何快速掌握Bootstrap？附免费学习资源</a></h3>
+                <div class="article-item-meta">
+                    <span>发布时间：2025-11-05</span>
+                    <span>阅读：89</span>
+                    <span>标签：学习分享 · 科技世界</span>
+                </div>
+                <p class="article-item-excerpt">
+                    作为前端“修仙”的基础框架，Bootstrap以其简洁易用、响应式设计成为小白入门的首选。本文分享我学习Bootstrap的经验：从CDN引入到组件使用，从布局技巧到自定义样式，再到结合HTML/CSS/JS实现个性化功能。同时整理了免费学习资源——官方文档、B站教程、实战案例，帮你快速上手，避免踩坑。适合零基础前端小白，跟着步骤学，一周就能用Bootstrap搭建出属于自己的博客（比如你现在正在用的这个！）。
+                </p>
+                <a href="articles/article-detail-study-2.html" class="read-more-btn">阅读全文</a>
+            </div>
+
+            <!-- 文章5：生活随笔 -->
+            <div class="article-item" data-category="生活随笔">
+                <div class="article-tags">
+                    <a href="#" class="badge-custom">生活随笔</a>
+                </div>
+                <h3 class="article-item-title"><a href="articles/article-detail-life-1.html">周末登山有感：人生如登山，慢即是快</a></h3>
+                <div class="article-item-meta">
+                    <span>发布时间：2025-11-01</span>
+                    <span>阅读：73</span>
+                    <span>标签：生活随笔 · 认知见解</span>
+                </div>
+                <p class="article-item-excerpt">
+                    周末闲来无事，约上好友登山。起初急于登顶，一路快步前行，忽略了沿途的风景，还没到半山腰就气喘吁吁。后来放慢脚步，才发现山间的枫叶正红，清泉潺潺，鸟鸣清脆。登顶后俯瞰群山，忽然明白：人生如登山，不必急于求成。编程学习也是如此，有时候看似慢下来啃基础，实则是在为后续的“飞升”积累能量；生活中亦是如此，偶尔停下脚步，才能发现身边的美好。本文聊聊登山途中的所见所感，以及对生活、学习的思考。
+                </p>
+                <a href="articles/article-detail-life-1.html" class="read-more-btn">阅读全文</a>
+            </div>
+
+            <!-- 新增文章6：Java修仙 -->
+            <div class="article-item" data-category="学习分享">
+                <div class="article-tags">
+                    <a href="#" class="badge-custom">学习分享</a>
+                </div>
+                <h3 class="article-item-title"><a href="articles/article-detail-study-3.html">Java面向对象：封装、继承、多态的修仙奥义</a>
+                </h3>
+                <div class="article-item-meta">
+                    <span>发布时间：2025-10-28</span>
+                    <span>阅读：112</span>
+                    <span>标签：学习分享 · 科技世界</span>
+                </div>
+                <p class="article-item-excerpt">
+                    掌握Java基础语法后，便要踏入“面向对象”的高阶修仙境界。封装如同给功法加锁，防止核心心法外泄；继承如同传承师门功法，站在巨人肩膀上突破；多态如同功法变式，一招多用适配不同场景。本文通过生动案例讲解封装的访问控制、继承的extends关键字、多态的向上转型与重写，帮你理解面向对象的核心逻辑，摆脱“面向过程”的思维定式，真正踏入Java修仙的进阶之路。
+                </p>
+                <a href="articles/article-detail-study-3.html" class="read-more-btn">阅读全文</a>
+            </div>
+
+            <!-- 新增文章7：玄幻杂谈 -->
+            <div class="article-item" data-category="认知见解">
+                <div class="article-tags">
+                    <a href="#" class="badge-custom">认知见解</a>
+                </div>
+                <h3 class="article-item-title"><a
+                        href="articles/article-detail-insight-1.html">玄幻小说中的“灵根”设定：映射现实中的天赋与努力</a></h3>
+                <div class="article-item-meta">
+                    <span>发布时间：2025-10-25</span>
+                    <span>阅读：87</span>
+                    <span>标签：认知见解 · 生活随笔</span>
+                </div>
+                <p class="article-item-excerpt">
+                    几乎所有玄幻小说都有“灵根”设定——单灵根天赋异禀，多灵根资质平庸，无灵根则无法修仙。这像极了现实中的“天赋论”：有人天生对编程敏感，有人则需要付出更多努力才能入门。但玄幻小说中总有“废柴逆袭”的剧情，现实中也有“勤能补拙”的案例。本文聊聊玄幻小说的灵根设定与现实的关联，探讨天赋与努力的关系：天赋决定起点，努力决定终点，正如编程之路，没有“绝对的无灵根”，只有“不坚持的修仙者”。
+                </p>
+                <a href="articles/article-detail-insight-1.html" class="read-more-btn">阅读全文</a>
+            </div>
+
+            <!-- 新增文章8：工具宝库 -->
+            <div class="article-item" data-category="科技世界">
+                <div class="article-tags">
+                    <a href="#" class="badge-custom">科技世界</a>
+                </div>
+                <h3 class="article-item-title"><a
+                        href="articles/article-detail-tech-2.html">Markdown神器推荐：让博客写作如修仙般顺畅</a></h3>
+                <div class="article-item-meta">
+                    <span>发布时间：2025-10-20</span>
+                    <span>阅读：93</span>
+                    <span>标签：科技世界 · 学习分享</span>
+                </div>
+                <p class="article-item-excerpt">
+                    写博客如同写修仙秘籍，排版工整才能让读者一目了然。Markdown作为“轻量级标记语言”，无需复杂操作就能实现美观排版，是博客作者的“修仙利器”。本文推荐5个Markdown神器：Typora（实时预览，极简界面）、Obsidian（本地存储，支持双向链接）、Notion（云端同步，支持多人协作）、MarkText（开源免费，功能齐全）、语雀（支持导出，适合团队分享），每个工具都附使用场景，帮你选到适合自己的“写作法器”。
+                </p>
+                <a href="articles/article-detail-tech-2.html" class="read-more-btn">阅读全文</a>
+            </div>
+
+            <!-- 新增文章9：学习资料 -->
+            <div class="article-item" data-category="学习分享">
+                <div class="article-tags">
+                    <a href="#" class="badge-custom">学习分享</a>
+                </div>
+                <h3 class="article-item-title"><a
+                        href="articles/article-detail-study-4.html">Java集合框架：ArrayList与LinkedList的选择之道</a></h3>
+                <div class="article-item-meta">
+                    <span>发布时间：2025-10-15</span>
+                    <span>阅读：105</span>
+                    <span>标签：学习分享 · 科技世界</span>
+                </div>
+                <p class="article-item-excerpt">
+                    Java集合框架如同修仙者的“储物袋”，用于存放各类“宝物”（数据）。ArrayList是“扩容式储物袋”，查询速度快但扩容耗时；LinkedList是“链式储物袋”，增删速度快但查询耗时。本文通过源码分析+实战案例，讲解ArrayList与LinkedList的底层实现、优缺点及适用场景，帮你在实际开发中“因地制宜”选择合适的集合，避免因选错“储物袋”导致程序效率低下，如同修仙者用错法器影响修为。
+                </p>
+                <a href="articles/article-detail-study-4.html" class="read-more-btn">阅读全文</a>
+            </div>
+
+            <!-- 新增文章10：生活随笔 -->
+            <div class="article-item" data-category="生活随笔">
+                <div class="article-tags">
+                    <a href="#" class="badge-custom">生活随笔</a>
+                </div>
+                <h3 class="article-item-title"><a href="articles/article-detail-life-2.html">深夜编程有感：孤独是程序员的修行</a></h3>
+                <div class="article-item-meta">
+                    <span>发布时间：2025-10-10</span>
+                    <span>阅读：68</span>
+                    <span>标签：生活随笔 · 认知见解</span>
+                </div>
+                <p class="article-item-excerpt">
+                    很多程序员都喜欢深夜编程——夜深人静，没有外界打扰，思路格外清晰。这像极了玄幻小说中的“闭关修行”：远离尘嚣，专注于自身修为突破。深夜编程时，面对屏幕上的代码，仿佛与自己对话，调试bug的过程如同破解修行中的“心魔”，解决问题后的喜悦如同“突破境界”。本文聊聊深夜编程的感受，探讨孤独与专注的关系：孤独不是寂寞，而是程序员的修行，在孤独中沉淀，才能在技术上稳步提升。
+                </p>
+                <a href="articles/article-detail-life-2.html" class="read-more-btn">阅读全文</a>
+            </div>
+        </div>
+
+        <!-- 5. 分页组件（3页页码，适配10篇文章） -->
+        <div class="pagination-container">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">上一页</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">下一页</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- 6. 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">闲者杂谈 · 闲敲棋子落灯花，漫谈江湖与尘沙</p>
+            <p class="footer-copyright">闲云野鹤 版权所有</p>
+            <p class="footer-copyright"><a
+                    href="https://beian.miit.gov.cn/?spm=5176.30371578.J_4NWEMkQ5nDwOgLi8EJmHs.60.4207154anbiqMl#/Integrated/index"
+                    style="color:white">© 2025 黔 2025056580</a></p>
+        </div>
+    </footer>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/theme-toggle.js"></script>
+    <!-- 引入列表页专属JS（筛选+分页逻辑） -->
+    <script src="js/articles.js"></script>
+</body>
+
+</html>

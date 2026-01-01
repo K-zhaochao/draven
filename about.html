@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 网站图标（适配电脑浏览器、标签页） -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
+    <!-- 适配苹果设备（iPhone/iPad 桌面图标） -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+
+    <!-- 适配Android设备 -->
+    <link rel="manifest" href="android-icon-48x48.png"> <!-- 压缩包中自带，无需修改 -->
+    <meta name="msapplication-TileColor" content="#4A6F7C"> <!-- 青黛色，与图标背景一致 -->
+    <meta name="theme-color" content="#4A6F7C"> <!-- 浏览器地址栏颜色，适配移动端 -->
+    <meta name="description" content="关于闲者杂谈 - 闲云野鹤的修仙档案。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="js/theme-init.js"></script>
+    <script src="js/user-status.js"></script>
+    <title>闲者杂谈</title>
+    <!-- 引入本地Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <!-- 引入全局样式 -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- 引入关于我页面专属样式 -->
+    <link rel="stylesheet" href="css/about.css">
+    <!-- 备选古风字体 CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap"
+        rel="stylesheet">
+    <!-- 引入图标库（用于联系方式图标） -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <!-- 1. 导航栏（与其他页面一致） -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-nav-dark">
+        <div class="container px-3"> <!-- 移动端添加水平内边距，避免贴边 -->
+            <a class="navbar-brand" href="index.html">
+                <span style="font-family: 'Ma Shan Zheng', serif; letter-spacing: 2px;">闲者杂谈</span>
+            </a>
+            <!-- 折叠按钮：确保data-target与折叠容器ID一致 -->
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-toggle="collapse"
+                data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="切换导航">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- 折叠菜单容器：添加移动端样式优化 -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- 移动端关闭按钮 -->
+                <div class="d-lg-none text-right">
+                    <button class="btn btn-link text-white p-0" type="button" data-toggle="collapse"
+                        data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="关闭导航">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <ul class="navbar-nav ml-auto"> <!-- 移动端减小间距，避免拥挤 -->
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="index.html">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="articles.html">文章列表</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="about.html">关于我</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="study.html">学习资料</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="tools.html">实用工具</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="ask.html">问道</a>
+                    </li>
+                </ul>
+                <div class="theme-toggle-wrapper ml-lg-3 mt-3 mt-lg-0">
+                    <button type="button" class="theme-toggle-btn" aria-label="切换夜间模式">🌙 夜间</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. 页面标题（古风卷轴标题） -->
+    <div class="container about-container">
+        <div class="articles-header">
+            <h1 class="articles-title">闲云野鹤 · 修士档案</h1>
+        </div>
+
+        <!-- 3. 核心内容区（卷轴式卡片） -->
+        <div class="about-card">
+            <!-- 印章装饰（占位符，后续添加图片） -->
+            <div class="seal-1"></div>
+            <div class="seal-2"></div>
+
+            <div class="row">
+                <!-- 左侧：头像+修仙等级 -->
+                <div class="col-md-4 sidebar-column">
+                    <div class="avatar-section">
+                        <div class="avatar-frame">
+                            <!-- 你的头像（你后续替换src） -->
+                            <img src="images/my-avatar.png" alt="闲云野鹤" class="avatar-img">
+                        </div>
+                        <div class="cultivation-level">修仙等级：筑基期</div>
+                    </div>
+                </div>
+
+                <!-- 右侧：个人信息详情 -->
+                <div class="col-md-8">
+                    <div class="info-section">
+                        <!-- 身份介绍 -->
+                        <h2 class="section-title">修士简介</h2>
+                        <p class="identity-desc">
+                            闲云野鹤，程序仙界一介散修，无门无派，随心而活。踏入编程修仙路两月有余，主攻Java后端心法与Web前端术法，痴迷于功法钻研，不求大道飞升，但求技有所长。性格沉静寡言，深知“多说无益，实干为要”，心思敏感细腻，能洞察编程功法中的细微玄妙，亦能捕捉江湖琐事里的悟道契机。闲来无事便开立“闲者杂谈”，记录修仙感悟、功法心得与江湖趣闻，愿与同道中人交流切磋，共探编程大道。
+                        </p>
+
+                        <!-- 擅长功法 -->
+                        <h2 class="section-title">擅长功法</h2>
+                        <ul class="skills-list">
+                            <li>Java基础心法（变量灵根、循环吐纳、面向对象悟道）</li>
+                            <li>资源搜集秘术（寻遍仙界角落，搜罗优质修炼资料与工具）</li>
+                        </ul>
+
+                        <!-- 座右铭（《大爱仙尊》语录） -->
+                        <div class="motto-box">
+                            <p class="motto-text">
+                                “真正的坚持，不是一条路走到黑，而是在无数次选择中，始终朝着本心的方向。纵有万般艰难，纵有千般诱惑，亦不改初心，不退半步。”
+                            </p>
+                            <p class="motto-source">—— 《大爱仙尊》</p>
+                        </div>
+
+                        <!-- 宗门联络方式 -->
+                        <h2 class="section-title">联络方式</h2>
+                        <ul class="contact-list">
+                            <li>
+                                <div class="contact-icon">
+                                    <i class="fab fa-qq"></i>
+                                </div>
+                                <span>QQ：<a href="https://qm.qq.com/q/H6USnnyeY2"
+                                        class="contact-link">1727369245</a></span>
+                            </li>
+                            <li>
+                                <div class="contact-icon">
+                                    <i class="fab fa-github"></i>
+                                </div>
+                                <span>GitHub：<a href="https://github.com/K-zhaochao" target="_blank"
+                                        class="contact-link">Draven</a></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">闲者杂谈 · 闲敲棋子落灯花，漫谈江湖与尘沙</p>
+            <p class="footer-copyright">闲云野鹤 版权所有</p>
+            <p class="footer-copyright"><a
+                    href="https://beian.miit.gov.cn/?spm=5176.30371578.J_4NWEMkQ5nDwOgLi8EJmHs.60.4207154anbiqMl#/Integrated/index"
+                    style="color:white">© 2025 黔 2025056580</a></p>
+        </div>
+    </footer>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/theme-toggle.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 网站图标（适配电脑浏览器、标签页） -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
+    <!-- 适配苹果设备（iPhone/iPad 桌面图标） -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+
+    <!-- 适配Android设备 -->
+    <link rel="manifest" href="android-icon-48x48.png"> <!-- 压缩包中自带，无需修改 -->
+    <meta name="msapplication-TileColor" content="#4A6F7C"> <!-- 青黛色，与图标背景一致 -->
+    <meta name="theme-color" content="#4A6F7C"> <!-- 浏览器地址栏颜色，适配移动端 -->
+    <meta name="description" content="Java基础心法之变量灵根详解 - 闲者杂谈文章详情。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="../js/theme-init.js"></script>
+    <script src="../js/user-status.js"></script>
+    <title>深夜编程有感：孤独是程序员的修行 - 闲者杂谈</title>
+    <!-- 引入本地Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <!-- 引入全局样式 -->
+    <link rel="stylesheet" href="../css/main.css">
+    <!-- 引入文章详情页专属样式 -->
+    <link rel="stylesheet" href="../css/article-detail.css">
+    <!-- 备选古风字体 CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC&display=swap"
+        rel="stylesheet">
+    <!-- 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <!-- 1. 导航栏（与其他页面一致） -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-nav-dark">
+        <div class="container px-3"> <!-- 移动端添加水平内边距，避免贴边 -->
+            <a class="navbar-brand" href="../index.html">
+                <span style="font-family: 'Ma Shan Zheng', serif; letter-spacing: 2px;">闲者杂谈</span>
+            </a>
+            <!-- 折叠按钮：确保data-target与折叠容器ID一致 -->
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-toggle="collapse"
+                data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="切换导航">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- 折叠菜单容器：添加移动端样式优化 -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- 移动端关闭按钮 -->
+                <div class="d-lg-none text-right">
+                    <button class="btn btn-link text-white p-0" type="button" data-toggle="collapse"
+                        data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="关闭导航">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <ul class="navbar-nav ml-auto"> <!-- 移动端减小间距，避免拥挤 -->
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../index.html">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../articles.html">文章列表</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../about.html">关于我</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../study.html">学习资料</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../tools.html">实用工具</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../ask.html">问道</a>
+                    </li>
+                </ul>
+                <div class="theme-toggle-wrapper ml-lg-3 mt-3 mt-lg-0">
+                    <button type="button" class="theme-toggle-btn" aria-label="切换夜间模式">🌙 夜间</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. 页面核心内容 -->
+    <div class="container article-container">
+        <!-- 文章标题+信息区 -->
+        <div class="article-header">
+            <h1 class="article-title">深夜编程有感：孤独是程序员的修行</h1>
+            <div class="article-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar-alt meta-icon"></i>
+                    <span>发布时间：2025-10-10</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-user meta-icon"></i>
+                    <span>作者：闲云野鹤</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-eye meta-icon"></i>
+                    <span>浏览人次：<span id="view-count">0</span></span>
+                </div>
+            </div>
+            <div class="tag-list">
+                <span class="tag-item">生活随笔</span>
+                <span class="tag-item">认知见解</span>
+            </div>
+        </div>
+
+        <!-- 文章正文区（卷轴式） -->
+        <div class="article-content">
+            <div class="article-seal"></div> <!-- 印章装饰 -->
+            <div class="content-text">
+                <p>（文章内容待补充...）</p>
+                <p>很多程序员都喜欢深夜编程——夜深人静，没有外界打扰，思路格外清晰。这像极了玄幻小说中的“闭关修行”：远离尘嚣，专注于自身修为突破。深夜编程时，面对屏幕上的代码，仿佛与自己对话，调试bug的过程如同破解修行中的“心魔”，解决问题后的喜悦如同“突破境界”。本文聊聊深夜编程的感受，探讨孤独与专注的关系：孤独不是寂寞，而是程序员的修行，在孤独中沉淀，才能在技术上稳步提升。
+                </p>
+            </div>
+        </div>
+
+        <!-- 留言板区域 -->
+        <div class="comment-section">
+            <h2 class="section-title">同道留言</h2>
+            <!-- 留言输入表单 -->
+            <form class="comment-form" id="commentForm">
+                <div class="form-group">
+                    <label for="commentName" class="form-label">道友名号</label>
+                    <input type="text" class="form-control" id="commentName" placeholder="请留下你的名号" required>
+                </div>
+                <div class="form-group">
+                    <label for="commentContent" class="form-label">留言内容</label>
+                    <textarea class="form-control" id="commentContent" rows="4" placeholder="分享你的修炼心得或疑问"
+                        required></textarea>
+                </div>
+                <button type="submit" class="comment-btn">提交留言</button>
+            </form>
+            <!-- 留言列表 -->
+            <h3 class="section-title" style="font-size: 1.5rem;">留言列表</h3>
+            <ul class="comment-list" id="commentList">
+                <!-- 留言会通过JS动态添加 -->
+                <li class="comment-item">
+                    <div class="comment-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="comment-name">编程小修士</div>
+                    <div class="comment-time">2025-11-16 10:23</div>
+                    <div class="comment-content">感谢闲云野鹤道友的详解！之前一直搞不懂float和double的区别，现在终于明白了，已经按教程练习了基础代码，确实清晰了很多～</div>
+                </li>
+                <li class="comment-item">
+                    <div class="comment-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="comment-name">Java悟道者</div>
+                    <div class="comment-time">2025-11-17 15:46</div>
+                    <div class="comment-content">补充一点：变量命名建议用“小驼峰命名法”（如cultivationYears），后续宗门协作时更易读懂，道友可以参考～</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 相关推荐区域 -->
+        <div class="related-section">
+            <h2 class="section-title">相关功法推荐</h2>
+            <div class="related-grid">
+                <div class="related-card">
+                    <a href="article-detail-life-1.html">
+                        <img src="../images/related-3.png" alt="周末登山" class="related-img">
+                        <div class="related-content">
+                            <h3 class="related-title">周末登山有感：人生如登山，慢即是快</h3>
+                            <p class="related-desc">起初急于登顶，一路快步前行，忽略了沿途的风景...人生如登山，不必急于求成...</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="related-card">
+                    <a href="article-detail-tech-1.html">
+                        <img src="../images/related-1.png" alt="修仙工具" class="related-img">
+                        <div class="related-content">
+                            <h3 class="related-title">10个程序员必备的“修仙工具”，效率飞升！</h3>
+                            <p class="related-desc">修仙路上，神兵利器不可或缺；编程途中，高效工具事半功倍。本文整理了10个亲测好用的工具...</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="related-card">
+                    <a href="article-detail-movie-2.html">
+                        <img src="../images/godfather.png" alt="《大爱仙尊》" class="related-img">
+                        <div class="related-content">
+                            <h3 class="related-title">《大爱仙尊》观后感：利己与利他的玄幻哲学</h3>
+                            <p class="related-desc">方源的“利己主义”与传统修仙的“利他正道”形成鲜明对比——究竟是“人不为己天诛地灭”，还是“大道之行也，天下为公”？...</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">闲者杂谈 · 闲敲棋子落灯花，漫谈江湖与尘沙</p>
+            <p class="footer-copyright">闲云野鹤 版权所有</p>
+            <p class="footer-copyright"><a
+                    href="https://beian.miit.gov.cn/?spm=5176.30371578.J_4NWEMkQ5nDwOgLi8EJmHs.60.4207154anbiqMl#/Integrated/index"
+                    style="color:white">© 2025 黔 2025056580</a></p>
+        </div>
+    </footer>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/theme-toggle.js"></script>
+    <!-- 文章详情页功能JS（阅读量+留言） -->
+    <script>
+        // 1. 阅读量统计（本地存储模拟，刷新页面不重置）
+        document.addEventListener('DOMContentLoaded', function () {
+            const viewCountElem = document.getElementById('view-count');
+            // 从本地存储获取已有阅读量，若无则为0
+            let viewCount = localStorage.getItem('articleViewCount') || 0;
+            // 阅读量+1（每次打开页面计数）
+            viewCount++;
+            // 更新页面显示和本地存储
+            viewCountElem.textContent = viewCount;
+            localStorage.setItem('articleViewCount', viewCount);
+
+            // 2. 留言功能
+            const commentForm = document.getElementById('commentForm');
+            const commentList = document.getElementById('commentList');
+            const commentName = document.getElementById('commentName');
+            const commentContent = document.getElementById('commentContent');
+
+            commentForm.addEventListener('submit', function (e) {
+                e.preventDefault(); // 阻止表单默认提交
+
+                // 获取输入值（去除空格）
+                const name = commentName.value.trim();
+                const content = commentContent.value.trim();
+
+                // 验证输入不为空
+                if (!name || !content) {
+                    alert('道友名号和留言内容不可为空！');
+                    return;
+                }
+
+                // 获取当前时间（格式化：YYYY-MM-DD HH:MM）
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const hour = String(now.getHours()).padStart(2, '0');
+                const minute = String(now.getMinutes()).padStart(2, '0');
+                const timeStr = `${year}-${month}-${day} ${hour}:${minute}`;
+
+                // 创建新留言元素
+                const newComment = document.createElement('li');
+                newComment.className = 'comment-item';
+                newComment.innerHTML = `
+          <div class="comment-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="comment-name">${name}</div>
+          <div class="comment-time">${timeStr}</div>
+          <div class="comment-content">${content}</div>
+        `;
+
+                // 添加到留言列表最前面
+                commentList.insertBefore(newComment, commentList.firstChild);
+
+                // 清空输入框
+                commentName.value = '';
+                commentContent.value = '';
+
+                // 提示留言成功
+                alert('留言成功！感谢道友分享～');
+            });
+        });
+    </script>
+</body>
+
+</html>

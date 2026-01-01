@@ -1,0 +1,972 @@
+/* 1. 全局变量（青黛+米白主色调，方便后续修改） */
+/* 定义根元素的CSS变量，用于全局主题颜色管理 */
+:root {
+  /* 日间模式：水墨宣纸风格 */
+  --color-cyan-gray: #2c4c54; /* 深青黛：更深沉的水墨色，用于标题 */
+  --color-cyan-gray-light: #5d8a96; /* 浅青黛：用于悬停和装饰 */
+  --color-rice-white: #f7f4ed; /* 宣纸白：更温暖的纸张质感 */
+  --color-rice-white-dark: #efebd6; /* 古旧宣纸：用于卡片背景 */
+  --color-text-dark: #2b2b2b; /* 浓墨：正文文字 */
+  --color-text-light: #595959; /* 淡墨：辅助文字 */
+  --color-border: #d9d2c5; /* 纸张纹理边框 */
+  --color-nav-dark: #2c3e50; /* 导航栏深色背景 */
+  --color-nav-text: #f7f4ed; /* 导航栏文字 */
+  --color-nav-soft-border: rgba(247, 244, 237, 0.3);
+  --shadow: 0 4px 12px rgba(44, 76, 84, 0.15); /* 水墨晕染阴影 */
+  --body-bg: #f7f4ed;
+  --body-overlay: rgba(247, 244, 237, 0.85);
+  --body-texture: url("../images/ink-texture.png"); /* 保留纹理，若无则回退到纯色 */
+  
+  /* 滚动条 */
+  --scrollbar-track: #efebd6;
+  --scrollbar-thumb: #8faab5;
+  --scrollbar-thumb-hover: #2c4c54;
+  
+  /* 动画粒子颜色 */
+  --particle-color: rgba(255, 183, 197, 0.6); /* 桃花瓣颜色 */
+}
+
+/* 夜间模式：玄幻星空/幽冥风格 */
+:root[data-theme="dark"] {
+  --color-cyan-gray: #64ffda; /* 荧光青：灵力流动的颜色 */
+  --color-cyan-gray-light: #a7ffeb; /* 浅荧光 */
+  --color-rice-white: #0a192f; /* 深邃夜空蓝 */
+  --color-rice-white-dark: #112240; /* 稍微亮一点的夜空，用于卡片 */
+  --color-text-dark: #ccd6f6; /* 星光白：正文 */
+  --color-text-light: #8892b0; /* 黯淡星光：辅助文字 */
+  --color-border: #233554; /* 结界边框 */
+  --color-nav-dark: #020c1b; /* 极暗夜空 */
+  --color-nav-text: #64ffda; /* 导航文字带荧光 */
+  --color-nav-soft-border: rgba(100, 255, 218, 0.2);
+  --shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7); /* 深邃虚空阴影 */
+  --body-bg: #0a192f;
+  --body-overlay: rgba(10, 25, 47, 0.9);
+  --body-texture: none;
+
+  /* 滚动条 */
+  --scrollbar-track: #0a192f;
+  --scrollbar-thumb: #233554;
+  --scrollbar-thumb-hover: #64ffda;
+
+  /* 动画粒子颜色 */
+  --particle-color: rgba(100, 255, 218, 0.4); /* 灵气光点颜色 */
+}
+
+/* 2. 引入古风字体（免费商用，加载失败自动 fallback） */
+/* 引入思源宋体，用于正文显示 */
+@font-face {
+  font-family: "Noto Serif SC"; /* 思源宋体（正文，清晰古风） */
+  src: url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap"); /* 字体资源URL */
+  font-display: swap; /* 加载时先显示 fallback 字体，不空白 */
+}
+/* 引入方正字迹-行书，用于标题显示 */
+@font-face {
+  font-family: "FZJZXS"; /* 方正字迹-行书（标题，玄幻飘逸感） */
+  src: url("../fonts/FZJZXS.ttf") format("truetype"); /* 本地字体文件（后面教你下载） */
+  fallback: "ZCOOL KuaiLe", "Ma Shan Zheng", serif; /* 备选行书字体 */
+  font-display: swap; /* 字体加载策略 */
+}
+
+/* 3. 全局样式重置 + 基础设置 */
+/* 重置所有元素的内外边距和盒模型 */
+* {
+  margin: 0; /* 去除默认外边距 */
+  padding: 0; /* 去除默认内边距 */
+  box-sizing: border-box; /* 使用边框盒模型，padding和border包含在width内 */
+  /* 全局过渡效果，使主题切换更丝滑 */
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 设置HTML平滑滚动 */
+html {
+  scroll-behavior: smooth; /* 启用平滑滚动效果 */
+}
+
+/* 选中文本样式 */
+/* 自定义文本被选中时的背景色和文字颜色 */
+::selection {
+  background-color: var(--color-cyan-gray-light); /* 选中背景色 */
+  color: var(--color-rice-white); /* 选中文字颜色 */
+}
+
+/* 自定义滚动条 */
+/* 滚动条整体样式 */
+::-webkit-scrollbar {
+  width: 8px; /* 滚动条宽度 */
+  height: 8px; /* 滚动条高度（横向滚动时） */
+}
+/* 滚动条轨道样式 */
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track); /* 轨道背景色 */
+}
+/* 滚动条滑块样式 */
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb); /* 滑块背景色 */
+  border-radius: 4px; /* 滑块圆角 */
+}
+/* 滚动条滑块悬停样式 */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover); /* 悬停时滑块背景色 */
+}
+
+/* Body全局样式 */
+body {
+  font-family: "Noto Serif SC", SimSun, "Microsoft YaHei", sans-serif; /* 字体 fallback 链：优先使用思源宋体 */
+  background-color: var(--body-bg); /* 背景颜色 */
+  color: var(--color-text-dark); /* 默认文字颜色 */
+  line-height: 1.8; /* 行高适中，方便阅读 */
+  background-image: 
+    linear-gradient(var(--body-overlay), var(--body-overlay)),
+    var(--body-texture); /* 水墨肌理背景（可选，后面替换）：叠加遮罩层和纹理图 */
+  background-size: cover; /* 背景图覆盖整个区域 */
+  background-attachment: fixed; /* 背景图固定，不随滚动条滚动 */
+  transition: all 0.3s ease; /* 主题切换时的过渡动画 */
+  overflow-x: hidden; /* 强制隐藏水平滚动条，防止动画溢出 */
+}
+
+/*
+ * ----------------------------------------------------------------
+ *  !! 全局水平溢出终极解决方案 !!
+ *  强制所有 .container 和 .container-fluid 容器隐藏水平溢出的内容。
+ *  这可以防止任何内部元素（无论是什么）撑开页面导致右侧出现空白。
+ * ----------------------------------------------------------------
+ */
+/* 容器样式，防止水平溢出 */
+.container,
+.container-fluid {
+    overflow-x: hidden !important; /* 强制隐藏水平溢出内容 */
+}
+
+/* 4. 导航栏样式（青黛色+古风悬浮效果） */
+/* 导航栏整体样式 */
+.navbar {
+  background: linear-gradient(to bottom, #2c3e50, #3c5862); /* 深邃渐变背景 */
+  border-bottom: 1px solid rgba(123, 158, 168, 0.3); /* 底部边框更柔和 */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* 更深邃的阴影 */
+  position: relative;
+}
+
+/* 导航栏背景动态纹理（模拟流动灵气） */
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* 优化动画实现：使用 background-position 移动流光，避免 width: 200% 导致的溢出问题 */
+  background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.05) 50%, transparent 80%);
+  background-size: 200% 100%;
+  animation: flowQi 10s infinite linear; /* 灵气流动动画 */
+  pointer-events: none;
+}
+
+@keyframes flowQi {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* 导航栏标题样式 */
+.navbar-brand {
+  font-family: "FZJZXS", "ZCOOL KuaiLe", serif; /* 标题用行书 */
+  font-size: 1.8rem; /* 字体大小 */
+  color: var(--color-nav-text) !important; /* 文字颜色 */
+  letter-spacing: 2px; /* 字间距拉开，更有古风感 */
+  text-shadow: 0 0 10px rgba(123, 158, 168, 0.5); /* 初始微光 */
+  transition: all 0.5s ease;
+}
+
+.navbar-brand:hover {
+  text-shadow: 0 0 15px rgba(123, 158, 168, 1); /* 增强阴影，补偿移除缩放后的视觉效果 */
+  /* transform: scale(1.05); 移除缩放，防止触发滚动条 */
+}
+
+/* 导航链接样式 */
+.navbar-nav .nav-link {
+  color: var(--color-nav-text) !important; /* 链接文字颜色 */
+  font-size: 1.1rem; /* 字体大小 */
+  margin: 0 8px; /* 左右外边距 */
+  position: relative; /* 相对定位，用于伪元素定位 */
+  z-index: 1;
+  transition: color 0.3s ease;
+  overflow: hidden; /* 关键：将特效限制在按钮内部，彻底杜绝溢出 */
+}
+
+/* 导航链接 hover 剑气/灵光效果 */
+.navbar-nav .nav-link::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* 柔和的灵光背景，不扩散 */
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+  transform: translateY(100%); /* 初始位置在下方 */
+  transition: transform 0.3s ease;
+  z-index: -1;
+}
+
+.navbar-nav .nav-link:hover::before {
+  transform: translateY(0); /* 悬停时上浮 */
+}
+
+/* 底部剑气横扫效果 */
+.navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  /* 剑气光束 */
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+  transform: scaleX(0); /* 初始宽度为0 */
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after {
+  transform: scaleX(1); /* 悬停时展开 */
+}
+
+.navbar-nav .nav-link:hover {
+  color: #fff !important;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+/* 移动端导航折叠按钮样式 */
+.navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.3) !important; /* 边框颜色 */
+  transition: transform 0.3s ease;
+}
+
+/* 移除旋转动画，防止撑开滚动条 */
+.navbar-toggler:hover {
+  transform: none; 
+}
+
+/* 移动端导航折叠按钮图标 */
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(245,240,235,0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important; /* 自定义SVG图标颜色 */
+}
+
+/* 5. Banner 区域（博客名称+标语，玄幻古风氛围） */
+/* 首页Banner区域样式 */
+.banner {
+  /* height: 300px;  移除固定高度，参考 tools 页面 */
+  /* display: flex;  移除 flex 布局 */
+  /* align-items: center; */
+  /* justify-content: center; */
+  text-align: center; /* 文字居中 */
+  margin: 30px 0 40px; /* 参考 tools 页面外边距 */
+  padding-bottom: 15px; /* 增加底部内边距 */
+  position: relative; /* 相对定位 */
+}
+/* Banner底部装饰线 */
+.banner::after {
+  content: ""; /* 伪元素内容为空 */
+  position: absolute; /* 绝对定位 */
+  bottom: 0; /* 位于底部 */
+  left: 10%; /* 左侧偏移10% */
+  width: 80%; /* 宽度80% */
+  height: 1px; /* 高度1px */
+  background: linear-gradient(to right, transparent, var(--color-cyan-gray-light), transparent); /* 渐变背景色 */
+}
+/* Banner标题样式 */
+.banner-title {
+  font-family: "FZJZXS", "ZCOOL KuaiLe", serif; /* 字体 */
+  font-size: 2.5rem; /* 参考 tools 页面字体大小 */
+  color: var(--color-cyan-gray); /* 文字颜色 */
+  letter-spacing: 3px; /* 调整字间距 */
+  margin-bottom: 10px; /* 底部外边距 */
+}
+/* Banner标语样式 */
+.banner-slogan {
+  font-size: 1.2rem; /* 字体大小 */
+  color: var(--color-text-light); /* 文字颜色 */
+  letter-spacing: 1px; /* 字间距 */
+}
+
+/* 6. 文章卡片样式（书页感+悬浮效果） */
+/* 文章卡片容器样式 */
+.article-card {
+  background-color: var(--color-rice-white-dark); /* 背景颜色 */
+  border: 1px solid var(--color-border); /* 边框 */
+  border-radius: 4px; /* 圆角 */
+  padding: 25px; /* 内边距 */
+  margin-bottom: 25px; /* 底部外边距 */
+  box-shadow: var(--shadow); /* 阴影 */
+  transition: all 0.3s ease; /* 过渡动画 */
+}
+/* 文章卡片悬停效果 */
+.article-card:hover {
+  transform: translateY(-5px); /* 上浮5px，玄幻悬浮感 */
+  box-shadow: 0 8px 16px rgba(74, 111, 124, 0.15); /* 加深阴影 */
+  border-color: var(--color-cyan-gray-light); /* 边框变色 */
+}
+/* 文章标题样式 */
+.article-title {
+  font-family: "FZJZXS", "Noto Serif SC", serif; /* 字体 */
+  font-size: 1.6rem; /* 字体大小 */
+  color: var(--color-cyan-gray); /* 文字颜色 */
+  margin-bottom: 15px; /* 底部外边距 */
+  transition: all 0.3s ease; /* 颜色过渡动画 */
+}
+/* 文章标题悬停效果 */
+.article-title:hover {
+  color: var(--color-cyan-gray-light); /* 悬停颜色 */
+  text-decoration: none; /* 去除下划线 */
+}
+/* 文章元信息样式（作者、时间等） */
+.article-meta {
+  color: var(--color-text-light); /* 文字颜色 */
+  font-size: 0.9rem; /* 字体大小 */
+  margin-bottom: 15px; /* 底部外边距 */
+}
+/* 文章摘要样式 */
+.article-excerpt {
+  color: var(--color-text-dark); /* 文字颜色 */
+  margin-bottom: 20px; /* 底部外边距 */
+  display: -webkit-box; /* Webkit盒子模型，用于多行省略 */
+  -webkit-line-clamp: 3; /* 只显示3行摘要 */
+  line-clamp: 3; /* 标准属性 */
+  -webkit-box-orient: vertical; /* 垂直排列 */
+  overflow: hidden; /* 隐藏溢出内容 */
+}
+
+/* 7. 分类标签样式（简约精致风格） */
+/* 标签样式 */
+.badge-custom {
+  display: inline-block; /* 行内块元素 */
+  background-color: rgba(74, 111, 124, 0.1); /* 淡青色背景 */
+  color: var(--color-cyan-gray) !important; /* 青灰色文字 */
+  padding: 4px 12px; /* 内边距 */
+  border-radius: 4px; /* 小圆角，更显稳重 */
+  margin-right: 8px; /* 右侧外边距 */
+  margin-bottom: 8px; /* 底部外边距 */
+  font-size: 0.85rem; /* 字体大小 */
+  border: 1px solid var(--color-cyan-gray-light); /* 细边框 */
+  transition: all 0.3s ease; /* 平滑过渡 */
+  font-family: "Noto Serif SC", serif; /* 字体 */
+}
+
+/* 标签悬停效果 */
+.badge-custom:hover {
+  background-color: var(--color-cyan-gray); /* 悬停背景色变深 */
+  color: var(--color-rice-white) !important; /* 文字变白 */
+  border-color: var(--color-cyan-gray); /* 边框变色 */
+  transform: translateY(-2px); /* 轻微上浮 */
+  box-shadow: 0 4px 8px rgba(74, 111, 124, 0.2); /* 增加阴影 */
+  text-decoration: none; /* 去除下划线 */
+}
+
+/* 8. 侧边栏样式 */
+/* 侧边栏卡片样式 */
+.sidebar-card {
+  background-color: var(--color-rice-white-dark); /* 背景颜色 */
+  border: 1px solid var(--color-border); /* 边框 */
+  border-radius: 4px; /* 圆角 */
+  padding: 20px; /* 内边距 */
+  margin-bottom: 25px; /* 底部外边距 */
+  box-shadow: var(--shadow); /* 阴影 */
+}
+/* 侧边栏标题样式 */
+.sidebar-title {
+  font-family: "FZJZXS", "Noto Serif SC", serif; /* 字体 */
+  font-size: 1.4rem; /* 字体大小 */
+  color: var(--color-cyan-gray); /* 文字颜色 */
+  margin-bottom: 20px; /* 底部外边距 */
+  padding-bottom: 10px; /* 底部内边距 */
+  border-bottom: 1px solid var(--color-border); /* 底部边框 */
+}
+/* 搜索框样式 */
+/* 搜索输入框样式 */
+.search-input {
+  border: 1px solid var(--color-border); /* 边框 */
+  border-radius: 20px; /* 圆角 */
+  padding: 8px 15px; /* 内边距 */
+  width: 100%; /* 宽度100% */
+  background-color: transparent; /* 确保背景色透明或跟随主题 */
+  color: var(--color-text-dark); /* 确保文字颜色跟随主题 */
+  transition: all 0.3s ease; /* 边框颜色过渡 */
+}
+/* 搜索输入框聚焦样式 */
+.search-input:focus {
+  outline: none; /* 去除默认轮廓 */
+  border-color: var(--color-cyan-gray-light); /* 聚焦时边框颜色 */
+}
+/* 搜索按钮样式 */
+.search-btn {
+  background-color: var(--color-cyan-gray); /* 背景颜色 */
+  color: var(--color-rice-white); /* 文字颜色 */
+  border: none; /* 去除边框 */
+  border-radius: 20px; /* 圆角 */
+  padding: 8px 20px; /* 内边距 */
+  margin-top: 10px; /* 顶部外边距 */
+  width: 100%; /* 宽度100% */
+  transition: all 0.3s ease; /* 背景色过渡 */
+}
+/* 搜索按钮悬停样式 */
+.search-btn:hover {
+  background-color: var(--color-cyan-gray-light); /* 悬停背景色 */
+}
+/* 热门推荐列表 */
+/* 列表容器样式 */
+.hot-list {
+  list-style: none; /* 去除列表标记 */
+  padding: 0; /* 去除内边距 */
+}
+/* 列表项样式 */
+.hot-list li {
+  margin-bottom: 12px; /* 底部外边距 */
+  padding-bottom: 12px; /* 底部内边距 */
+  border-bottom: 1px dashed var(--color-border); /* 虚线分隔，更有古风感 */
+}
+/* 最后一个列表项样式 */
+.hot-list li:last-child {
+  border-bottom: none; /* 去除底部边框 */
+  margin-bottom: 0; /* 去除底部外边距 */
+  padding-bottom: 0; /* 去除底部内边距 */
+}
+/* 列表链接样式 */
+.hot-list a {
+  color: var(--color-text-dark); /* 文字颜色 */
+  transition: all 0.3s ease; /* 颜色过渡 */
+}
+/* 列表链接悬停样式 */
+.hot-list a:hover {
+  color: var(--color-cyan-gray); /* 悬停文字颜色 */
+  text-decoration: none; /* 去除下划线 */
+}
+
+/* 9. 页脚样式（古风落款 + 仙侠云雾） */
+/* 页脚容器样式 */
+.footer {
+  background: linear-gradient(to bottom, #2c3e50, #1a252f); /* 深邃背景 */
+  color: var(--color-nav-text); /* 文字颜色 */
+  text-align: center; /* 文字居中 */
+  padding: 60px 0 30px; /* 增加顶部内边距，为装饰留空间 */
+  margin-top: 80px; /* 顶部外边距 */
+  position: relative;
+  border-top: none; /* 移除旧边框 */
+  overflow: hidden; /* 关键修复：防止云雾动画撑开页面宽度 */
+}
+
+/* 页脚顶部山峦装饰 (SVG Data URI) */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: -40px; /* 向上偏移，覆盖在页面底部 */
+  left: 0;
+  width: 100%;
+  height: 41px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%232c3e50'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.5' fill='%232c3e50'/%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%232c3e50'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+/* 云雾动画层 */
+.footer::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100' preserveAspectRatio='none'%3E%3Cpath fill='rgba(255,255,255,0.05)' d='M0,0 C200,50 400,0 600,50 C800,100 1000,0 1200,50 L1200,100 L0,100 Z'/%3E%3C/svg%3E");
+  background-size: 50% 100%;
+  animation: driftCloud 30s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes driftCloud {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* 页脚文字样式 */
+.footer-text {
+  font-family: "Noto Serif SC", serif; /* 字体 */
+  font-size: 1.1rem; /* 字体大小 */
+  letter-spacing: 2px; /* 字间距 */
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+/* 版权信息样式 */
+.footer-copyright {
+  font-size: 0.9rem; /* 字体大小 */
+  color: rgba(255, 255, 255, 0.6); /* 文字颜色（半透明） */
+  margin-top: 10px; /* 顶部外边距 */
+  position: relative;
+  z-index: 2;
+}
+
+/* 导航栏移动端优化 */
+/* 移动端导航背景色 */
+.bg-nav-dark {
+  background-color: var(--color-nav-dark); /* 沿用全局导航栏背景色，确保一致 */
+}
+
+/* 折叠按钮样式优化（去除默认边框和阴影） */
+/* 聚焦时去除阴影 */
+.navbar-toggler:focus {
+    box-shadow: none; /* 去除阴影 */
+}
+
+/* 移动端侧边栏抽屉式导航（右侧滑出 + 磨砂质感） */
+@media (max-width: 991.98px) {
+    /* 1. 侧边栏容器 */
+    .navbar-collapse {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 280px; /* 固定宽度，避免全屏撑开滚动条 */
+        height: 100vh;
+        background-color: #2c3e50; /* 纯色背景，移除透明度以提升性能 */
+        /* backdrop-filter: none; 彻底移除磨砂效果 */
+        z-index: 1050;
+        padding: 60px 20px 20px; /* 顶部留出空间给关闭按钮 */
+        
+        /* 强制覆盖Bootstrap的折叠动画行为 */
+        display: block !important; 
+        transform: translateX(100%); /* 默认移出屏幕右侧 */
+        transition: transform 0.15s linear; /* 极速切换，减少动画时间 */
+        will-change: transform; /* 性能优化：提示浏览器提前提升层级 */
+        
+        /* 阴影增加层次感 */
+        box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15); /* 简化阴影 */
+        
+        /* 内部滚动 */
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch; /* iOS顺滑滚动 */
+    }
+
+    /* 2. 展开状态 */
+    .navbar-collapse.show {
+        transform: translateX(0); /* 滑入屏幕 */
+    }
+    
+    /* 3. 处理Bootstrap动画过程中的类 (覆盖默认的高度动画) */
+    .navbar-collapse.collapsing {
+        display: block !important;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 280px;
+        height: 100vh !important;
+        transform: translateX(100%); /* 动画开始前在右侧 */
+        transition: transform 0.15s linear;
+        z-index: 1050;
+        background-color: #2c3e50;
+    }
+    
+    /* 激活状态下的动画过渡（Bootstrap添加collapsing类时） */
+    .navbar-collapse.collapsing.show {
+        transform: translateX(0);
+    }
+
+    /* 4. 导航链接样式优化（紧凑、左对齐） */
+    .navbar-nav {
+        width: 100%;
+        text-align: left; /* 左对齐，更符合阅读习惯 */
+        margin: 0;
+        padding-left: 10px;
+    }
+    
+    .nav-item {
+        margin: 5px 0; /* 减小间距 */
+        opacity: 1; /* 移除淡入动画，直接显示 */
+        transform: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* 细分隔线 */
+    }
+
+    .nav-link {
+        font-family: "Noto Serif SC", serif; /* 回归正文字体，更易读 */
+        font-size: 1.1rem !important; /* 正常字体大小，不违和 */
+        color: rgba(255, 255, 255, 0.85) !important;
+        padding: 12px 0 !important;
+        display: block;
+        transition: all 0.2s;
+    }
+    
+    .nav-link:hover,
+    .nav-item.active .nav-link {
+        color: #fff !important;
+        /* padding-left: 10px !important; 移除位移，防止重排卡顿 */
+        background: transparent;
+    }
+    
+    /* 移除之前的选中装饰线和背景光效 */
+    .nav-link::before,
+    .nav-link::after {
+        display: none !important;
+        content: none; /* 彻底移除 */
+    }
+
+    /* 5. 主题切换按钮位置 */
+    .theme-toggle-wrapper {
+        margin-top: 20px;
+        padding-left: 10px;
+        opacity: 1;
+        transform: none;
+        display: block !important;
+    }
+    
+    .theme-toggle-btn {
+        width: 100%;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* 6. 关闭按钮样式优化 */
+    .d-lg-none.text-right {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        z-index: 1060;
+    }
+    
+    .d-lg-none.text-right button span {
+        font-size: 2rem !important; /* 缩小关闭按钮 */
+        color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .d-lg-none.text-right button:hover span {
+        color: #fff;
+        transform: rotate(90deg);
+    }
+    
+    /* 7. 遮罩层（点击空白处关闭） */
+    /* 通过JS动态添加遮罩层，或者利用伪元素 */
+    .navbar-collapse.show::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: -100vw; /* 延伸到左侧覆盖剩余屏幕 */
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5); /* 半透明遮罩 */
+        z-index: -1; /* 在菜单之下 */
+        pointer-events: auto; /* 允许点击 */
+        /* 注意：Bootstrap的collapse点击外部默认不会关闭，需要JS配合 */
+    }
+}
+
+/* 桌面端保持原有间距 */
+@media (min-width: 992px) {
+    /* 导航链接样式 */
+    .nav-link {
+        padding: 0.5rem 1rem !important; /* 强制设置内边距 */
+    }
+}
+
+/* 10. 主题切换按钮（桌面+移动端共用） */
+/* 按钮容器样式 */
+.theme-toggle-wrapper {
+  width: 100%; /* 宽度100% */
+  display: flex; /* Flex布局 */
+  justify-content: center; /* 水平居中 */
+}
+/* 桌面端按钮容器样式 */
+@media (min-width: 992px) {
+  .theme-toggle-wrapper {
+    width: auto; /* 自动宽度 */
+    justify-content: flex-start; /* 左对齐 */
+  }
+}
+/* 切换按钮样式 */
+.theme-toggle-btn {
+  border: 1px solid var(--color-nav-soft-border); /* 边框 */
+  background-color: transparent; /* 透明背景 */
+  color: var(--color-nav-text); /* 文字颜色 */
+  border-radius: 999px; /* 全圆角 */
+  padding: 6px 18px; /* 内边距 */
+  font-size: 0.95rem; /* 字体大小 */
+  font-family: "Noto Serif SC", serif; /* 字体 */
+  cursor: pointer; /* 鼠标指针样式 */
+  transition: all 0.3s ease; /* 过渡动画 */
+  width: 100%; /* 宽度100% */
+}
+/* 桌面端切换按钮样式 */
+@media (min-width: 992px) {
+  .theme-toggle-btn {
+    width: auto; /* 自动宽度 */
+    min-width: 100px; /* 设置最小宽度，防止切换时抖动 */
+    text-align: center; /* 文字居中 */
+  }
+}
+/* 切换按钮悬停样式 */
+.theme-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.12); /* 悬停背景色 */
+  border-color: var(--color-nav-text); /* 悬停边框颜色 */
+}
+
+/* 暗色模式下的表单控件样式 */
+:root[data-theme="dark"] .form-control {
+  background-color: #11181f; /* 背景颜色 */
+  border-color: #2d3a42; /* 边框颜色 */
+  color: var(--color-text-dark); /* 文字颜色 */
+}
+/* 暗色模式下的表单占位符样式 */
+:root[data-theme="dark"] .form-control::placeholder {
+  color: var(--color-text-light); /* 文字颜色 */
+  opacity: 0.7; /* 透明度 */
+}
+
+/* 优化焦点样式 */
+/* 键盘聚焦时的样式 */
+:focus-visible {
+  outline: 2px solid var(--color-cyan-gray); /* 轮廓线 */
+  outline-offset: 2px; /* 轮廓线偏移 */
+}
+/* 鼠标点击聚焦时去除轮廓 */
+:focus:not(:focus-visible) {
+  outline: none; /* 去除轮廓 */
+}
+
+/* 11. 玄幻古风背景动画系统：诗词流光（瀑布流版） */
+/* 背景容器：固定定位，覆盖全屏，置于最底层 */
+#fantasy-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* 确保在所有内容之下 */
+  pointer-events: none; /* 不阻挡鼠标点击 */
+  overflow: hidden;
+}
+
+/* 诗词文字基础样式 */
+.poetic-text {
+  position: absolute;
+  display: block;
+  font-family: "FZJZXS", "Noto Serif SC", serif; /* 优先使用行书 */
+  writing-mode: vertical-rl; /* 竖排文字，更有古籍感 */
+  text-orientation: upright;
+  white-space: nowrap;
+  opacity: 0;
+  user-select: none;
+  will-change: transform, opacity;
+}
+
+/* 日间模式：水墨滴落风格 */
+:root[data-theme="light"] .poetic-text {
+  color: rgba(44, 76, 84, 0.12); /* 极淡的青黛色 */
+  text-shadow: 0 0 1px rgba(44, 76, 84, 0.05);
+  animation: inkFall linear forwards; /* 墨迹下落 */
+}
+
+/* 夜间模式：星河垂落风格 */
+:root[data-theme="dark"] .poetic-text {
+  color: rgba(100, 255, 218, 0.1); /* 极淡的荧光青 */
+  text-shadow: 0 0 8px rgba(100, 255, 218, 0.3); /* 增强发光 */
+  animation: spiritFall linear forwards; /* 灵力下落 */
+}
+
+/* 动画定义：从上至下 */
+@keyframes inkFall {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.95);
+    filter: blur(3px);
+  }
+  15% {
+    opacity: 0.8; /* 较快显现 */
+    filter: blur(0);
+  }
+  85% {
+    opacity: 0.6;
+    filter: blur(0.5px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(120vh) scale(1); /* 移动到屏幕下方 */
+    filter: blur(2px);
+  }
+}
+
+@keyframes spiritFall {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.9);
+  }
+  10% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.3; /* 忽明忽暗 */
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(120vh) scale(1.1); /* 移动到屏幕下方 */
+  }
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .poetic-text {
+    font-size: 14px !important; /* 强制限制字体大小 */
+  }
+}
+
+/* 12. 自定义无抖动模态框 (Custom Modal) */
+/* 替代Bootstrap Modal，不锁定Body滚动，彻底解决抖动问题 */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明遮罩 */
+    z-index: 2000; /* 层级高于导航栏 */
+    display: none; /* 默认隐藏 */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    overflow-y: auto; /* 允许模态框内容滚动 */
+    padding: 20px 0; /* 上下留白 */
+    backdrop-filter: blur(5px); /* 背景模糊效果，提升高级感 */
+}
+
+.custom-modal-overlay.active {
+    display: block; /* 激活时显示 */
+    /* 使用 setTimeout 在下一帧添加 opacity: 1 以触发 transition */
+}
+
+.custom-modal-overlay.visible {
+    opacity: 1;
+}
+
+.custom-modal-container {
+    background-color: var(--color-rice-white);
+    border-radius: 12px; /* 更圆润的角 */
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    width: 90%;
+    max-width: 800px; /* 大号模态框宽度 */
+    margin: 50px auto; /* 水平居中，顶部距离 */
+    position: relative;
+    transform: translateY(30px);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 弹性动画 */
+    border: 1px solid var(--color-border);
+}
+
+.custom-modal-overlay.visible .custom-modal-container {
+    transform: translateY(0);
+}
+
+/* 适配夜间模式 */
+:root[data-theme="dark"] .custom-modal-container {
+    background-color: var(--color-rice-white-dark);
+    border-color: var(--color-border);
+}
+
+/* 关闭按钮样式 */
+.close-custom-modal {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--color-text-light);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    z-index: 10;
+}
+
+.close-custom-modal:hover {
+    color: var(--color-cyan-gray);
+}
+
+/* 13. 移动端导航栏防滚动穿透类 */
+/* 当导航栏打开时，给html和body添加此类，禁止背景滚动 */
+html.nav-open,
+body.nav-open {
+    overflow: hidden !important;
+    height: 100% !important;
+    /* 移除 position: fixed 以防止页面滚动位置丢失 */
+}
+
+/* 14. 移动端导航遮罩层 */
+.nav-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4); /* 稍微调低透明度 */
+    z-index: 1015; /* 关键修复：必须低于 Bootstrap sticky-top (1020)，否则会覆盖导航栏导致无法点击 */
+    opacity: 0;
+    transition: opacity 0.15s linear; /* 加快遮罩层显示速度 */
+    pointer-events: none;
+    will-change: opacity; /* 性能优化 */
+    -webkit-backface-visibility: hidden; /* 防止闪烁 */
+    backface-visibility: hidden;
+}
+
+.nav-backdrop.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 15. 移动端文章列表横向滚动优化 */
+@media (max-width: 767.98px) {
+    /* 文章列表容器：启用横向滚动 */
+    .article-list-container {
+        display: flex;
+        overflow-x: auto;
+        /* 增加顶部内边距，防止阴影被截断；增加底部内边距，保留美观 */
+        padding-top: 20px; 
+        padding-bottom: 25px; 
+        /* 抵消父容器左右padding，实现全屏宽度，确保左右露出宽度一致 */
+        margin-left: -15px;
+        margin-right: -15px;
+        /* 增加左右内边距，配合 scroll-snap-align: center 实现首尾卡片居中 */
+        /* 计算方式：(100% - 85%) / 2 = 7.5% */
+        padding-left: 7.5%;
+        padding-right: 7.5%;
+        
+        -webkit-overflow-scrolling: touch; /* iOS惯性滚动 */
+        scroll-snap-type: x mandatory; /* 滚动捕捉 */
+        gap: 15px; /* 卡片间距 */
+    }
+
+    /* 隐藏滚动条但保留功能（可选，根据需求调整） */
+    .article-list-container::-webkit-scrollbar {
+        display: none; /* 隐藏滚动条，界面更清爽 */
+    }
+
+    /* 文章卡片适配 */
+    .article-list-container .article-card {
+        flex: 0 0 85%; /* 每个卡片占据85%宽度 */
+        width: 85%;
+        margin-bottom: 0; /* 移除底部间距 */
+        scroll-snap-align: center; /* 滚动停止时居中对齐 */
+        height: auto; /* 高度自适应 */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    /* 调整卡片内边距，使其更紧凑 */
+    .article-list-container .article-card {
+        padding: 20px;
+    }
+    
+    /* 限制摘要行数，防止卡片过高 */
+    .article-list-container .article-excerpt {
+        -webkit-line-clamp: 2; /* 移动端只显示2行 */
+        line-clamp: 2; /* 标准属性 */
+    }
+}

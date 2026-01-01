@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 网站图标（适配电脑浏览器、标签页） -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
+    <!-- 适配苹果设备（iPhone/iPad 桌面图标） -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+
+    <!-- 适配Android设备 -->
+    <link rel="manifest" href="android-icon-48x48.png"> <!-- 压缩包中自带，无需修改 -->
+    <meta name="msapplication-TileColor" content="#4A6F7C"> <!-- 青黛色，与图标背景一致 -->
+    <meta name="theme-color" content="#4A6F7C"> <!-- 浏览器地址栏颜色，适配移动端 -->
+    <meta name="description" content="Java基础心法之变量灵根详解 - 闲者杂谈文章详情。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="../js/theme-init.js"></script>
+    <script src="../js/user-status.js"></script>
+    <title>闲者杂谈</title>
+    <!-- 引入本地Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <!-- 引入全局样式 -->
+    <link rel="stylesheet" href="../css/main.css">
+    <!-- 引入文章详情页专属样式 -->
+    <link rel="stylesheet" href="../css/article-detail.css">
+    <!-- 备选古风字体 CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC&display=swap"
+        rel="stylesheet">
+    <!-- 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <!-- 1. 导航栏（与其他页面一致） -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-nav-dark">
+        <div class="container px-3"> <!-- 移动端添加水平内边距，避免贴边 -->
+            <a class="navbar-brand" href="../index.html">
+                <span style="font-family: 'Ma Shan Zheng', serif; letter-spacing: 2px;">闲者杂谈</span>
+            </a>
+            <!-- 折叠按钮：确保data-target与折叠容器ID一致 -->
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-toggle="collapse"
+                data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="切换导航">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- 折叠菜单容器：添加移动端样式优化 -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- 移动端关闭按钮 -->
+                <div class="d-lg-none text-right">
+                    <button class="btn btn-link text-white p-0" type="button" data-toggle="collapse"
+                        data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="关闭导航">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <ul class="navbar-nav ml-auto"> <!-- 移动端减小间距，避免拥挤 -->
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../index.html">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../articles.html">文章列表</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../about.html">关于我</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../study.html">学习资料</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../tools.html">实用工具</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="../ask.html">问道</a>
+                    </li>
+                </ul>
+                <div class="theme-toggle-wrapper ml-lg-3 mt-3 mt-lg-0">
+                    <button type="button" class="theme-toggle-btn" aria-label="切换夜间模式">🌙 夜间</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. 页面核心内容 -->
+    <div class="container article-container">
+        <!-- 文章标题+信息区 -->
+        <div class="article-header">
+            <h1 class="article-title">Java基础心法之变量灵根详解</h1>
+            <div class="article-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar-alt meta-icon"></i>
+                    <span>发布时间：2025-11-15</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-user meta-icon"></i>
+                    <span>作者：闲云野鹤</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-eye meta-icon"></i>
+                    <span>浏览人次：<span id="view-count">0</span></span>
+                </div>
+            </div>
+            <div class="tag-list">
+                <span class="tag-item">学习分享</span>
+                <span class="tag-item">科技世界</span>
+            </div>
+        </div>
+
+        <!-- 文章正文区（卷轴式） -->
+        <div class="article-content">
+            <div class="article-seal"></div> <!-- 印章装饰 -->
+            <div class="content-text">
+                踏入Java修仙界，首重根基稳固。变量灵根，乃Java基础心法之核心，如同修士的先天灵根，决定了后续功法修炼的上限与方向。不少筑基期修士初涉此道时，往往忽视灵根分类与运用之妙，导致后续功法运行不畅、灵力紊乱，实为可惜。今日便为诸位同道详解变量灵根的本质、分类及修炼要点，助大家夯实基础，稳步前行。
+            </div>
+            <div class="content-text">
+                变量灵根的本质，是“存储灵力（数据）的容器”。在Java功法体系中，任何术法（代码）的运行都离不开灵力的流转与存储，而变量灵根便是承载这份灵力的关键。如同修士的丹田，变量灵根需先明确“容量”与“属性”——容量决定能承载的灵力上限，属性决定能容纳的灵力类型（如整数、字符串、布尔值等），二者缺一不可。
+            </div>
+            <div class="content-quote">
+                “灵根不明，修炼无根；变量不辨，代码无魂。”——《Java修仙录》
+            </div>
+            <div class="content-text">
+                变量灵根主要分为四大类，对应不同的灵力属性，诸位修士需按需选择，不可混淆：
+            </div>
+            <div class="content-text">
+                其一，整型灵根（int）。此灵根专司存储整数型灵力，如修炼年限、功法层数、数值计算结果等。其容量上限为-2147483648至2147483647，足以满足筑基期修士的日常修炼需求。修炼要点：声明时需加关键字“int”，赋值时不可包含小数，否则灵根紊乱（编译报错）。示例：<code>int cultivationYears = 2;</code>（存储修炼年限2年）。
+            </div>
+            <div class="content-text">
+                其二，浮点型灵根（double/float）。此灵根可存储带有小数的灵力，如功法威力值、修炼进度百分比等。double灵根精度更高（默认首选），float灵根需在数值后加“F”标识。修炼要点：避免用浮点型灵根存储货币、精确计算结果，因其存在精度损耗，如同灵力泄露，易导致功法偏差。示例：<code>double skillPower = 99.9;</code>（存储功法威力99.9）。
+            </div>
+            <div class="content-text">
+                其三，字符型灵根（char）。此灵根专司存储单个字符灵力，如功法代号、状态标识等。声明时需用单引号包裹字符，不可存储多个字符（否则灵根过载）。修炼要点：可存储ASCII码对应的字符，也可直接存储Unicode字符（如中文、特殊符号）。示例：<code>char skillCode = 'A';</code>（存储功法代号A）。
+            </div>
+            <div class="content-text">
+                其四，布尔型灵根（boolean）。此灵根最为特殊，仅能存储“是”（true）或“否”（false）两种灵力状态，如同修士的“开关”，常用于功法判断、条件执行。修炼要点：不可赋值为0或1（与其他功法体系不同），仅能使用true/false，否则灵根失效。示例：<code>boolean isMastered = true;</code>（标识功法已掌握）。
+            </div>
+            <div class="content-text">
+                除四大基础灵根外，Java修仙界还有“引用型灵根”（如String、数组、对象），此为金丹期后需精修的内容，筑基期修士暂需聚焦基础，待根基稳固后再深入探究。
+            </div>
+            <div class="content-text">
+                变量灵根的修炼禁忌，诸位修士需牢记：其一，灵根未声明不可直接使用（如同无丹田不可存灵力）；其二，灵根类型不可随意转换（如整型灵根不可直接存储字符串灵力）；其三，灵根命名需规范（以字母、下划线、$开头，不可用关键字，如同修士名号不可乱取）。
+            </div>
+            <div class="content-text">
+                最后，修行之路无捷径，变量灵根的掌握需勤加练习。建议诸位修士每日编写10-20行基础代码，尝试运用不同灵根存储数据、进行计算，久而久之便能熟能生巧，让灵根运用自如。待基础灵根融会贯通，后续学习循环吐纳（循环语句）、分支悟道（条件语句）时便会事半功倍。
+            </div>
+            <div class="content-text">
+                以上便是变量灵根的核心知识点，若有同道存在疑问或修炼心得，可在下方留言区交流探讨。修仙之路，独行快，众行远，愿与诸位共探Java大道，不负韶华，不负初心。
+            </div>
+        </div>
+
+        <!-- 留言板区域 -->
+        <div class="comment-section">
+            <h2 class="section-title">同道留言</h2>
+            <!-- 留言输入表单 -->
+            <form class="comment-form" id="commentForm">
+                <div class="form-group">
+                    <label for="commentName" class="form-label">道友名号</label>
+                    <input type="text" class="form-control" id="commentName" placeholder="请留下你的名号" required>
+                </div>
+                <div class="form-group">
+                    <label for="commentContent" class="form-label">留言内容</label>
+                    <textarea class="form-control" id="commentContent" rows="4" placeholder="分享你的修炼心得或疑问"
+                        required></textarea>
+                </div>
+                <button type="submit" class="comment-btn">提交留言</button>
+            </form>
+            <!-- 留言列表 -->
+            <h3 class="section-title" style="font-size: 1.5rem;">留言列表</h3>
+            <ul class="comment-list" id="commentList">
+                <!-- 留言会通过JS动态添加 -->
+                <li class="comment-item">
+                    <div class="comment-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="comment-name">编程小修士</div>
+                    <div class="comment-time">2025-11-16 10:23</div>
+                    <div class="comment-content">感谢闲云野鹤道友的详解！之前一直搞不懂float和double的区别，现在终于明白了，已经按教程练习了基础代码，确实清晰了很多～</div>
+                </li>
+                <li class="comment-item">
+                    <div class="comment-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="comment-name">Java悟道者</div>
+                    <div class="comment-time">2025-11-17 15:46</div>
+                    <div class="comment-content">补充一点：变量命名建议用“小驼峰命名法”（如cultivationYears），后续宗门协作时更易读懂，道友可以参考～</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 相关推荐区域 -->
+        <div class="related-section">
+            <h2 class="section-title">相关功法推荐</h2>
+            <div class="related-grid">
+                <div class="related-card">
+                    <a href="article-detail-study-3.html">
+                        <img src="../images/related-1.png" alt="Java面向对象" class="related-img">
+                        <div class="related-content">
+                            <h3 class="related-title">Java面向对象：封装、继承、多态的修仙奥义</h3>
+                            <p class="related-desc">封装如同给功法加锁，防止核心心法外泄；继承如同传承师门功法...本文通过生动案例讲解面向对象的核心逻辑...</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="related-card">
+                    <a href="article-detail-study-4.html">
+                        <img src="../images/related-1.png" alt="Java集合框架" class="related-img">
+                        <div class="related-content">
+                            <h3 class="related-title">Java集合框架：ArrayList与LinkedList的选择之道</h3>
+                            <p class="related-desc">Java集合框架如同修仙者的“储物袋”...本文通过源码分析+实战案例，讲解ArrayList与LinkedList的底层实现...
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="related-card">
+                    <a href="article-detail-tech-1.html">
+                        <img src="../images/related-3.png" alt="修仙工具" class="related-img">
+                        <div class="related-content">
+                            <h3 class="related-title">10个程序员必备的“修仙工具”，效率飞升！</h3>
+                            <p class="related-desc">修仙路上，神兵利器不可或缺；编程途中，高效工具事半功倍。本文整理了10个亲测好用的工具...</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">闲者杂谈 · 闲敲棋子落灯花，漫谈江湖与尘沙</p>
+            <p class="footer-copyright">闲云野鹤 版权所有</p>
+            <p class="footer-copyright"><a
+                    href="https://beian.miit.gov.cn/?spm=5176.30371578.J_4NWEMkQ5nDwOgLi8EJmHs.60.4207154anbiqMl#/Integrated/index"
+                    style="color:white">© 2025 黔 2025056580</a></p>
+        </div>
+    </footer>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/theme-toggle.js"></script>
+    <!-- 文章详情页功能JS（阅读量+留言） -->
+    <script>
+        // 1. 阅读量统计（本地存储模拟，刷新页面不重置）
+        document.addEventListener('DOMContentLoaded', function () {
+            const viewCountElem = document.getElementById('view-count');
+            // 从本地存储获取已有阅读量，若无则为0
+            let viewCount = localStorage.getItem('articleViewCount') || 0;
+            // 阅读量+1（每次打开页面计数）
+            viewCount++;
+            // 更新页面显示和本地存储
+            viewCountElem.textContent = viewCount;
+            localStorage.setItem('articleViewCount', viewCount);
+
+            // 2. 留言功能
+            const commentForm = document.getElementById('commentForm');
+            const commentList = document.getElementById('commentList');
+            const commentName = document.getElementById('commentName');
+            const commentContent = document.getElementById('commentContent');
+
+            commentForm.addEventListener('submit', function (e) {
+                e.preventDefault(); // 阻止表单默认提交
+
+                // 获取输入值（去除空格）
+                const name = commentName.value.trim();
+                const content = commentContent.value.trim();
+
+                // 验证输入不为空
+                if (!name || !content) {
+                    alert('道友名号和留言内容不可为空！');
+                    return;
+                }
+
+                // 获取当前时间（格式化：YYYY-MM-DD HH:MM）
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const hour = String(now.getHours()).padStart(2, '0');
+                const minute = String(now.getMinutes()).padStart(2, '0');
+                const timeStr = `${year}-${month}-${day} ${hour}:${minute}`;
+
+                // 创建新留言元素
+                const newComment = document.createElement('li');
+                newComment.className = 'comment-item';
+                newComment.innerHTML = `
+          <div class="comment-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="comment-name">${name}</div>
+          <div class="comment-time">${timeStr}</div>
+          <div class="comment-content">${content}</div>
+        `;
+
+                // 添加到留言列表最前面
+                commentList.insertBefore(newComment, commentList.firstChild);
+
+                // 清空输入框
+                commentName.value = '';
+                commentContent.value = '';
+
+                // 提示留言成功
+                alert('留言成功！感谢道友分享～');
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,112 @@
+/* 问道页面专用样式 */
+
+.chat-container {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.chat-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-family: 'Ma Shan Zheng', cursive;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.message {
+    display: flex;
+    max-width: 80%;
+}
+
+.bot-message {
+    align-self: flex-start;
+}
+
+.user-message {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.message-content {
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.bot-message .message-content {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    border-top-left-radius: 2px;
+}
+
+.user-message .message-content {
+    background-color: var(--primary-color);
+    color: white;
+    border-top-right-radius: 2px;
+}
+
+.chat-input-area {
+    padding: 15px;
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+}
+
+.chat-input-area textarea {
+    resize: none;
+    border-radius: 10px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.chat-input-area textarea:focus {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(74, 111, 124, 0.25);
+}
+
+/* 滚动条样式 */
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+[data-theme="dark"] .chat-messages::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+}

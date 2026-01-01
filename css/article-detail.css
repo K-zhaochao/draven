@@ -1,0 +1,408 @@
+/* 1. 页面整体布局 */
+.article-container {
+  padding: 30px 0; /* 设置上下内边距为30px，左右为0 */
+}
+/* 文章标题区 */
+.article-header {
+  text-align: center; /* 设置文本居中对齐 */
+  margin-bottom: 40px; /* 设置下外边距为40px */
+  position: relative; /* 设置相对定位 */
+  padding-bottom: 20px; /* 设置下内边距为20px */
+}
+.article-header::after {
+  content: ""; /* 设置伪元素内容为空 */
+  position: absolute; /* 设置绝对定位 */
+  bottom: 0; /* 距离底部0 */
+  left: 50%; /* 距离左侧50% */
+  transform: translateX(-50%); /* 通过变换水平居中 */
+  width: 120px; /* 设置宽度为120px */
+  height: 2px; /* 设置高度为2px */
+  background-color: var(--color-cyan-gray-light); /* 设置背景颜色为浅青灰色变量 */
+}
+.article-title {
+  font-family: "FZJZXS", "Ma Shan Zheng", serif; /* 设置字体族 */
+  font-size: 2.2rem; /* 设置字体大小为2.2rem */
+  color: var(--color-cyan-gray); /* 设置字体颜色为青灰色变量 */
+  letter-spacing: 2px; /* 设置字间距为2px */
+  margin-bottom: 15px; /* 设置下外边距为15px */
+}
+/* 文章信息栏（发布时间、作者、阅读量、标签） */
+.article-meta {
+  display: flex; /* 设置为弹性盒子布局 */
+  flex-wrap: wrap; /* 设置允许换行 */
+  justify-content: center; /* 设置主轴居中对齐 */
+  gap: 20px; /* 设置元素间距为20px */
+  font-size: 0.95rem; /* 设置字体大小为0.95rem */
+  color: var(--color-text-light); /* 设置字体颜色为浅色文本变量 */
+}
+.meta-item {
+  display: flex; /* 设置为弹性盒子布局 */
+  align-items: center; /* 设置交叉轴居中对齐 */
+  gap: 8px; /* 设置元素间距为8px */
+}
+.meta-icon {
+  color: var(--color-cyan-gray-light); /* 设置图标颜色为浅青灰色变量 */
+}
+/* 功法标签样式（手风琴重叠风格） */
+.tag-list {
+  display: flex; /* 设置为弹性盒子布局 */
+  flex-wrap: wrap; /* 设置允许换行 */
+  justify-content: center; /* 设置主轴居中对齐 */
+  margin-top: 15px; /* 设置上外边距 */
+  padding: 10px 0; /* 增加内边距 */
+  overflow: visible; /* 允许放大溢出 */
+}
+.tag-item {
+  position: relative; /* 相对定位 */
+  margin-right: -10px; /* 负边距重叠 */
+  background-color: var(--color-rice-white-dark); /* 背景色 */
+  color: var(--color-cyan-gray); /* 文字色 */
+  padding: 5px 20px; /* 内边距 */
+  border-radius: 6px; /* 圆角 */
+  font-size: 0.9rem; /* 字体大小 */
+  border: 1px solid var(--color-border); /* 边框 */
+  box-shadow: -2px 0 5px rgba(0,0,0,0.05); /* 阴影 */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* 弹性过渡 */
+  z-index: 1; /* 默认层级 */
+  font-family: "Noto Serif SC", serif; /* 字体 */
+}
+
+/* 悬停效果 */
+.tag-item:hover {
+  margin-right: 8px; /* 展开 */
+  margin-left: 8px; /* 展开 */
+  z-index: 10; /* 浮起 */
+  transform: translateY(-3px) scale(1.1); /* 放大 */
+  background-color: var(--color-cyan-gray); /* 悬停背景色 */
+  color: var(--color-rice-white); /* 悬停文字颜色 */
+  border-color: var(--color-cyan-gray); /* 边框变色 */
+  box-shadow: 0 5px 15px rgba(74, 111, 124, 0.2); /* 阴影 */
+  cursor: default; /* 默认光标 */
+}
+
+/* 2. 文章正文区（卷轴式布局） */
+.article-content {
+  background-color: var(--color-rice-white-dark); /* 设置背景颜色为深米白色变量 */
+  border: 1px solid var(--color-border); /* 设置1像素实线边框，颜色使用边框变量 */
+  border-radius: 8px; /* 设置边框圆角为8px */
+  box-shadow: var(--shadow); /* 设置阴影效果，使用阴影变量 */
+  padding: 50px; /* 设置内边距为50px */
+  margin-bottom: 40px; /* 设置下外边距为40px */
+  position: relative; /* 设置相对定位 */
+  /* 卷轴纹理背景 */
+  background-image: 
+    linear-gradient(rgba(242, 237, 232, 0.98), rgba(242, 237, 232, 0.98)),
+    url("../images/scroll-texture.png"); /* 设置背景图片：线性渐变叠加卷轴纹理图 */
+  background-size: cover; /* 设置背景图片覆盖整个容器 */
+}
+/* 正文印章装饰 */
+.article-seal {
+  position: absolute; /* 设置绝对定位 */
+  top: -25px; /* 距离顶部-25px */
+  right: -25px; /* 距离右侧-25px */
+  width: 90px; /* 设置宽度为90px */
+  height: 90px; /* 设置高度为90px */
+  background-image: url("../images/seal-red.png"); /* 设置背景图片为红色印章 */
+  background-size: contain; /* 设置背景图片自适应容器大小 */
+  background-repeat: no-repeat; /* 设置背景图片不重复 */
+  opacity: 0.6; /* 设置透明度为0.6 */
+  z-index: 1; /* 设置层级为1 */
+}
+/* 正文排版（古风样式） */
+.content-text {
+  font-family: "Noto Serif SC", serif; /* 设置字体族 */
+  font-size: 1.1rem; /* 设置字体大小为1.1rem */
+  line-height: 2.2; /* 设置行高为2.2倍 */
+  color: var(--color-text-dark); /* 设置字体颜色为深色文本变量 */
+  text-indent: 2em; /* 设置首行缩进2字符 */
+  margin-bottom: 25px; /* 设置下外边距为25px */
+}
+/* 正文图片样式（如果有图片） */
+.content-img {
+  display: block; /* 设置为块级元素 */
+  max-width: 80%; /* 设置最大宽度为80% */
+  margin: 30px auto; /* 设置上下外边距30px，左右自动居中 */
+  border-radius: 8px; /* 设置边框圆角为8px */
+  border: 3px solid var(--color-rice-white); /* 设置3像素实线边框，颜色为米白色变量 */
+  box-shadow: 0 5px 15px rgba(74, 111, 124, 0.1); /* 设置阴影效果 */
+}
+/* 引用样式 */
+.content-quote {
+  background-color: rgba(74, 111, 124, 0.05); /* 设置背景颜色为淡青色 */
+  border-left: 3px solid var(--color-cyan-gray); /* 设置左边框为3像素实线 */
+  padding: 15px 20px; /* 设置内边距：上下15px，左右20px */
+  margin: 30px 0; /* 设置上下外边距为30px */
+  border-radius: 0 4px 4px 0; /* 设置右侧圆角为4px */
+  font-style: italic; /* 设置字体样式为斜体 */
+  color: var(--color-text-light); /* 设置字体颜色为浅色文本变量 */
+  line-height: 2; /* 设置行高为2倍 */
+}
+
+/* 3. 留言板区域 */
+.comment-section {
+  background-color: var(--color-rice-white-dark); /* 设置背景颜色为深米白色变量 */
+  border: 1px solid var(--color-border); /* 设置1像素实线边框，颜色使用边框变量 */
+  border-radius: 8px; /* 设置边框圆角为8px */
+  box-shadow: var(--shadow); /* 设置阴影效果，使用阴影变量 */
+  padding: 40px; /* 设置内边距为40px */
+  margin-bottom: 40px; /* 设置下外边距为40px */
+}
+.section-title {
+  font-family: "FZJZXS", "Noto Serif SC", serif; /* 设置字体族 */
+  font-size: 1.8rem; /* 设置字体大小为1.8rem */
+  color: var(--color-cyan-gray); /* 设置字体颜色为青灰色变量 */
+  margin-bottom: 30px; /* 设置下外边距为30px */
+  padding-bottom: 10px; /* 设置下内边距为10px */
+  border-bottom: 1px solid var(--color-border); /* 设置下边框为1像素实线 */
+  letter-spacing: 3px; /* 设置字间距为3px */
+}
+/* 留言输入框 */
+.comment-form {
+  margin-bottom: 40px; /* 设置下外边距为40px */
+}
+.form-group {
+  margin-bottom: 20px; /* 设置下外边距为20px */
+}
+.form-label {
+  color: var(--color-cyan-gray); /* 设置字体颜色为青灰色变量 */
+  font-size: 1.1rem; /* 设置字体大小为1.1rem */
+  margin-bottom: 10px; /* 设置下外边距为10px */
+  display: block; /* 设置为块级元素 */
+}
+.form-control {
+  width: 100%; /* 设置宽度为100% */
+  padding: 12px 15px; /* 设置内边距：上下12px，左右15px */
+  border: 1px solid var(--color-border); /* 设置1像素实线边框，颜色使用边框变量 */
+  border-radius: 4px; /* 设置边框圆角为4px */
+  background-color: var(--color-rice-white); /* 设置背景颜色为米白色变量 */
+  font-size: 1rem; /* 设置字体大小为1rem */
+  color: var(--color-text-dark); /* 设置字体颜色为深色文本变量 */
+  resize: none; /* 禁止调整大小 */
+}
+.form-control:focus {
+  outline: none; /* 去除默认轮廓线 */
+  border-color: var(--color-cyan-gray-light); /* 设置聚焦时边框颜色 */
+  box-shadow: 0 0 0 3px rgba(74, 111, 124, 0.1); /* 设置聚焦时阴影效果 */
+}
+.comment-btn {
+  background-color: var(--color-cyan-gray); /* 设置背景颜色为青灰色变量 */
+  color: var(--color-rice-white); /* 设置字体颜色为米白色变量 */
+  border: none; /* 去除边框 */
+  padding: 10px 30px; /* 设置内边距：上下10px，左右30px */
+  border-radius: 25px; /* 设置边框圆角为25px */
+  font-size: 1.1rem; /* 设置字体大小为1.1rem */
+  cursor: pointer; /* 设置鼠标样式为手型 */
+  transition: all 0.3s ease; /* 设置所有属性的过渡效果 */
+  font-family: "Noto Serif SC", serif; /* 设置字体族 */
+}
+.comment-btn:hover {
+  background-color: var(--color-cyan-gray-light); /* 设置悬停时背景颜色 */
+  transform: translateY(-2px); /* 设置悬停时向上移动2px */
+}
+/* 留言列表 */
+.comment-list {
+  list-style: none; /* 去除列表默认样式 */
+  padding: 0; /* 设置内边距为0 */
+}
+.comment-item {
+  padding: 20px; /* 设置内边距为20px */
+  border-bottom: 1px dashed var(--color-border); /* 设置下边框为1像素虚线 */
+  margin-bottom: 20px; /* 设置下外边距为20px */
+}
+.comment-item:last-child {
+  border-bottom: none; /* 去除最后一个元素的下边框 */
+  margin-bottom: 0; /* 去除最后一个元素的下外边距 */
+}
+.comment-avatar {
+  width: 50px; /* 设置宽度为50px */
+  height: 50px; /* 设置高度为50px */
+  border-radius: 50%; /* 设置边框圆角为50% */
+  background-color: var(--color-cyan-gray-light); /* 设置背景颜色为浅青灰色变量 */
+  color: var(--color-rice-white); /* 设置字体颜色为米白色变量 */
+  display: flex; /* 设置为弹性盒子布局 */
+  align-items: center; /* 设置交叉轴居中对齐 */
+  justify-content: center; /* 设置主轴居中对齐 */
+  font-size: 1.5rem; /* 设置字体大小为1.5rem */
+  margin-bottom: 15px; /* 设置下外边距为15px */
+}
+.comment-name {
+  font-size: 1.1rem; /* 设置字体大小为1.1rem */
+  color: var(--color-cyan-gray); /* 设置字体颜色为青灰色变量 */
+  margin-bottom: 5px; /* 设置下外边距为5px */
+}
+.comment-time {
+  font-size: 0.85rem; /* 设置字体大小为0.85rem */
+  color: var(--color-text-light); /* 设置字体颜色为浅色文本变量 */
+  margin-bottom: 10px; /* 设置下外边距为10px */
+}
+.comment-content {
+  font-size: 1rem; /* 设置字体大小为1rem */
+  color: var(--color-text-dark); /* 设置字体颜色为深色文本变量 */
+  line-height: 1.8; /* 设置行高为1.8倍 */
+}
+
+/* 4. 相关推荐区域 */
+.related-section {
+  margin-bottom: 30px; /* 设置下外边距为30px */
+}
+.related-grid {
+  display: grid; /* 设置为网格布局 */
+  grid-template-columns: repeat(3, 1fr); /* 设置3列，每列等宽 */
+  gap: 20px; /* 设置网格间距为20px */
+}
+.related-card {
+  background-color: var(--color-rice-white-dark); /* 设置背景颜色为深米白色变量 */
+  border: 1px solid var(--color-border); /* 设置1像素实线边框，颜色使用边框变量 */
+  border-radius: 8px; /* 设置边框圆角为8px */
+  overflow: hidden; /* 设置溢出隐藏 */
+  transition: all 0.3s ease; /* 设置所有属性的过渡效果 */
+  box-shadow: var(--shadow); /* 设置阴影效果，使用阴影变量 */
+}
+.related-card:hover {
+  transform: translateY(-5px); /* 设置悬停时向上移动5px */
+  box-shadow: 0 10px 20px rgba(74, 111, 124, 0.18); /* 设置悬停时阴影加深 */
+  border-color: var(--color-cyan-gray-light); /* 设置悬停时边框颜色 */
+}
+.related-card a {
+  text-decoration: none; /* 去除下划线 */
+  color: inherit; /* 继承父元素颜色 */
+  display: block; /* 设置为块级元素 */
+}
+.related-img {
+  width: 100%; /* 设置宽度为100% */
+  height: 160px; /* 设置高度为160px */
+  object-fit: cover; /* 设置图片填充方式为覆盖 */
+  border-bottom: 1px solid var(--color-border); /* 设置下边框为1像素实线 */
+}
+.related-content {
+  padding: 20px; /* 设置内边距为20px */
+}
+.related-title {
+  font-family: "Noto Serif SC", serif; /* 设置字体族 */
+  font-size: 1.1rem; /* 设置字体大小为1.1rem */
+  color: var(--color-cyan-gray); /* 设置字体颜色为青灰色变量 */
+  margin-bottom: 10px; /* 设置下外边距为10px */
+  white-space: nowrap; /* 设置不换行 */
+  overflow: hidden; /* 设置溢出隐藏 */
+  text-overflow: ellipsis; /* 设置溢出显示省略号 */
+}
+.related-desc {
+  font-size: 0.9rem; /* 设置字体大小为0.9rem */
+  color: var(--color-text-light); /* 设置字体颜色为浅色文本变量 */
+  line-height: 1.6; /* 设置行高为1.6倍 */
+  display: -webkit-box; /* 设置为弹性伸缩盒子模型显示 */
+  -webkit-line-clamp: 2; /* 限制在一个块元素显示的文本的行数 */
+  -webkit-box-orient: vertical; /* 设置或检索伸缩盒对象的子元素的排列方式 */
+  overflow: hidden; /* 设置溢出隐藏 */
+}
+
+/* 5. 响应式适配 */
+@media (max-width: 992px) {
+  .related-grid {
+    grid-template-columns: repeat(2, 1fr); /* 设置2列，每列等宽 */
+  }
+}
+@media (max-width: 768px) {
+  .article-content {
+    padding: 30px 20px; /* 设置内边距：上下30px，左右20px */
+  }
+  .comment-section {
+    padding: 30px 20px; /* 设置内边距：上下30px，左右20px */
+  }
+  .related-grid {
+    grid-template-columns: 1fr; /* 设置1列 */
+  }
+  .article-title {
+    font-size: 1.8rem; /* 设置字体大小为1.8rem */
+  }
+  .content-text {
+    font-size: 1rem; /* 设置字体大小为1rem */
+    line-height: 2; /* 设置行高为2倍 */
+  }
+  .article-seal {
+    width: 70px; /* 设置宽度为70px */
+    height: 70px; /* 设置高度为70px */
+    top: -15px; /* 距离顶部-15px */
+    right: -15px; /* 距离右侧-15px */
+  }
+}
+
+/* 6. 暗色主题适配 */
+:root[data-theme="dark"] .article-content,
+:root[data-theme="dark"] .comment-section,
+:root[data-theme="dark"] .related-card {
+  background-color: rgba(12, 18, 24, 0.92); /* 设置暗色主题背景颜色 */
+  border-color: rgba(255, 255, 255, 0.08); /* 设置暗色主题边框颜色 */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45); /* 设置暗色主题阴影 */
+}
+
+:root[data-theme="dark"] .article-content {
+  background-image:
+    linear-gradient(rgba(12, 18, 24, 0.92), rgba(12, 18, 24, 0.92)),
+    url("../images/scroll-texture.png"); /* 设置暗色主题背景图片 */
+}
+
+:root[data-theme="dark"] .article-header::after,
+:root[data-theme="dark"] .content-quote {
+  background-color: rgba(155, 213, 255, 0.2); /* 设置暗色主题背景颜色 */
+}
+
+:root[data-theme="dark"] .content-quote {
+  border-left-color: var(--color-cyan-gray-light); /* 设置暗色主题左边框颜色 */
+  color: var(--color-text-light); /* 设置暗色主题字体颜色 */
+}
+
+:root[data-theme="dark"] .tag-item {
+  background-color: rgba(155, 213, 255, 0.1); /* 设置暗色主题背景颜色 */
+  color: var(--color-cyan-gray-light); /* 设置暗色主题字体颜色 */
+  border-color: rgba(155, 213, 255, 0.4); /* 设置暗色主题边框颜色 */
+}
+
+:root[data-theme="dark"] .comment-item {
+  border-bottom-color: rgba(255, 255, 255, 0.08); /* 设置暗色主题下边框颜色 */
+}
+
+:root[data-theme="dark"] .comment-avatar {
+  background-color: rgba(155, 213, 255, 0.2); /* 设置暗色主题背景颜色 */
+  color: var(--color-cyan-gray-light); /* 设置暗色主题字体颜色 */
+}
+
+:root[data-theme="dark"] .comment-name,
+:root[data-theme="dark"] .section-title,
+:root[data-theme="dark"] .form-label,
+:root[data-theme="dark"] .related-title,
+:root[data-theme="dark"] .article-title {
+  color: var(--color-cyan-gray-light); /* 设置暗色主题字体颜色 */
+}
+
+:root[data-theme="dark"] .comment-time,
+:root[data-theme="dark"] .article-meta,
+:root[data-theme="dark"] .related-desc {
+  color: var(--color-text-light); /* 设置暗色主题字体颜色 */
+}
+
+:root[data-theme="dark"] .related-img {
+  border-bottom-color: rgba(255, 255, 255, 0.08); /* 设置暗色主题下边框颜色 */
+}
+
+:root[data-theme="dark"] .comment-btn {
+  background-color: var(--color-cyan-gray-light); /* 设置暗色主题背景颜色 */
+  color: #0e1318; /* 设置暗色主题字体颜色 */
+}
+:root[data-theme="dark"] .comment-btn:hover {
+  background-color: var(--color-cyan-gray); /* 设置暗色主题悬停背景颜色 */
+}
+
+:root[data-theme="dark"] .form-control {
+  background-color: rgba(15, 22, 28, 0.9); /* 设置暗色主题背景颜色 */
+  border-color: rgba(255, 255, 255, 0.08); /* 设置暗色主题边框颜色 */
+  color: var(--color-text-dark); /* 设置暗色主题字体颜色 */
+}
+:root[data-theme="dark"] .form-control:focus {
+  box-shadow: 0 0 0 3px rgba(155, 213, 255, 0.15); /* 设置暗色主题聚焦阴影 */
+}
+
+:root[data-theme="dark"] .content-img {
+  border-color: rgba(255, 255, 255, 0.15); /* 设置暗色主题边框颜色 */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.45); /* 设置暗色主题阴影 */
+}

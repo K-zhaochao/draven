@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 网站图标（适配电脑浏览器、标签页） -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
+    <!-- 适配苹果设备（iPhone/iPad 桌面图标） -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+
+    <!-- 适配Android设备 -->
+    <link rel="manifest" href="android-icon-48x48.png"> <!-- 压缩包中自带，无需修改 -->
+    <meta name="msapplication-TileColor" content="#4A6F7C"> <!-- 青黛色，与图标背景一致 -->
+    <meta name="theme-color" content="#4A6F7C"> <!-- 浏览器地址栏颜色，适配移动端 -->
+    <meta name="description" content="闲者杂谈 - 闲敲棋子落灯花，漫谈江湖与尘沙。分享Java修仙、影视悟道、工具宝库等内容。">
+    <meta name="keywords" content="闲者杂谈, Java, 编程, 影视, 工具, 资源">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="js/theme-init.js"></script>
+    <script src="js/user-status.js"></script>
+    <title>闲者杂谈</title>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <!-- 引入自定义古风样式 -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- 备选古风字体 CDN（如果本地行书字体加载失败） -->
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- 1. 导航栏区域：包含网站Logo、导航链接和移动端折叠菜单 -->
+    <!-- 使用Bootstrap的navbar组件，支持响应式折叠，sticky-top实现吸顶效果 -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-nav-dark">
+        <div class="container px-3"> <!-- 移动端添加水平内边距，避免贴边 -->
+            <!-- 网站Logo/品牌名称 -->
+            <a class="navbar-brand" href="index.html">
+                <span style="font-family: 'Ma Shan Zheng', serif; letter-spacing: 2px;">闲者杂谈</span>
+            </a>
+            <!-- 移动端折叠按钮：确保data-target与折叠容器ID一致 -->
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-toggle="collapse"
+                data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="切换导航">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- 折叠菜单容器：包含导航链接和主题切换按钮 -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- 移动端关闭按钮 -->
+                <div class="d-lg-none text-right">
+                    <button class="btn btn-link text-white p-0" type="button" data-toggle="collapse"
+                        data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="关闭导航">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <!-- 导航链接列表：ml-auto使菜单靠右对齐 -->
+                <ul class="navbar-nav ml-auto"> <!-- 移动端减小间距，避免拥挤 -->
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="index.html">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="articles.html">文章列表</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="about.html">关于我</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="study.html">学习资料</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="tools.html">实用工具</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-2 px-3" href="ask.html">问道</a>
+                    </li>
+                </ul>
+                <!-- 主题切换按钮容器 -->
+                <div class="theme-toggle-wrapper ml-lg-3 mt-3 mt-lg-0">
+                    <button type="button" class="theme-toggle-btn" aria-label="切换夜间模式">🌙 夜间</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Banner 区域：展示博客名称和标语，作为页面的视觉焦点 -->
+    <div class="banner">
+        <div class="container">
+            <h1 class="banner-title">闲者杂谈</h1>
+            <p class="banner-slogan">闲敲棋子落灯花，漫谈江湖与尘沙</p>
+        </div>
+    </div>
+
+    <!-- 3. 主体内容区域：采用栅格布局，左侧为文章列表，右侧为侧边栏 -->
+    <div class="container">
+        <h2 class="sidebar-title mb-4">最新杂谈</h2>
+        <div class="row">
+            <!-- 左侧：文章列表（占8列，移动端自动堆叠） -->
+            <div class="col-md-8">
+                <div class="article-list-container">
+                    <!-- 文章卡片 0 (新增) -->
+                    <div class="article-card">
+                        <h3 class="article-title"><a href="articles/article-detail-movie-1.html">《教父》观后感：权力的游戏与男人的圣经</a>
+                        </h3>
+                        <div class="article-meta">
+                            <span>发布时间：2025-11-23</span> ·
+                            <span>分类：<a href="#" class="badge-custom">影视悟道</a></span> ·
+                            <span>阅读：208</span>
+                        </div>
+                        <p class="article-excerpt">
+                            有人说，《教父》是男人的圣经。初看时，被其中的黑帮火拼、权谋算计所吸引；再看时，才读懂了其中关于家庭、责任与成长的沉重话题。弗朗西斯·福特·科波拉用史诗般的镜头语言，讲述了柯里昂家族的兴衰...
+                        </p>
+                        <a href="articles/article-detail-movie-1.html" class="badge-custom">阅读全文</a>
+                    </div>
+
+                    <!-- 文章卡片 1 -->
+                    <div class="article-card">
+                        <h3 class="article-title"><a
+                                href="articles/article-detail-study-1.html">Java修仙之路：从入门到渡劫（基础语法篇）</a>
+                        </h3>
+                        <div class="article-meta">
+                            <span>发布时间：2025-11-20</span> ·
+                            <span>分类：<a href="#" class="badge-custom">学习分享</a></span> ·
+                            <span>阅读：128</span>
+                        </div>
+                        <p class="article-excerpt">
+                            编程之道，如修仙练气。Java作为江湖第一编程语言，其语法如同修仙功法的基础心法——变量为灵根，循环为吐纳，条件判断为趋吉避凶...
+                            本文带你入门Java基础语法，夯实灵根，为后续渡劫飞升铺路。
+                        </p>
+                        <a href="articles/article-detail-study-1.html" class="badge-custom">阅读全文</a>
+                    </div>
+
+                    <!-- 文章卡片 2 -->
+                    <div class="article-card">
+                        <h3 class="article-title"><a
+                                href="articles/article-detail-movie-2.html">《大爱仙尊》观后感：利己与利他的玄幻哲学</a>
+                        </h3>
+                        <div class="article-meta">
+                            <span>发布时间：2025-11-15</span> ·
+                            <span>分类：<a href="#" class="badge-custom">影视悟道</a></span> ·
+                            <span>阅读：96</span>
+                        </div>
+                        <p class="article-excerpt">
+                            看罢《大爱仙尊》，心中久久不能平静。方源的“利己主义”与传统修仙的“利他正道”形成鲜明对比——究竟是“人不为己天诛地灭”，还是“大道之行也，天下为公”？本文从玄幻故事出发，聊聊现实中的处世哲学。
+                        </p>
+                        <a href="articles/article-detail-movie-2.html" class="badge-custom">阅读全文</a>
+                    </div>
+
+                    <!-- 文章卡片 3 -->
+                    <div class="article-card">
+                        <h3 class="article-title"><a
+                                href="articles/article-detail-tech-1.html">10个程序员必备的“修仙工具”，效率飞升！</a>
+                        </h3>
+                        <div class="article-meta">
+                            <span>发布时间：2025-11-10</span> ·
+                            <span>分类：<a href="#" class="badge-custom">科技世界</a></span> ·
+                            <span>阅读：156</span>
+                        </div>
+                        <p class="article-excerpt">
+                            修仙路上，神兵利器不可或缺；编程途中，高效工具事半功倍。本文整理了10个亲测好用的工具——从代码编辑器到文档管理，从调试神器到效率插件，每个都能让你少走弯路，快速提升“修为”。
+                        </p>
+                        <a href="articles/article-detail-tech-1.html" class="badge-custom">阅读全文</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧：侧边栏（占4列，移动端自动堆叠） -->
+            <div class="col-md-4">
+                <!-- 搜索框模块 -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">搜索杂谈</h3>
+                    <form action="articles.html" method="GET">
+                        <input type="text" name="search" class="search-input" placeholder="输入关键词搜索...">
+                        <button type="submit" class="search-btn">搜索</button>
+                    </form>
+                </div>
+
+                <!-- 分类标签模块 -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">分类标签</h3>
+                    <div class="d-flex flex-wrap"> <!-- Bootstrap 弹性布局，自动换行 -->
+                        <a href="articles.html?category=学习分享" class="badge-custom">学习分享</a>
+                        <a href="articles.html?category=认知见解" class="badge-custom">认知见解</a>
+                        <a href="articles.html?category=科技世界" class="badge-custom">科技世界</a>
+                        <a href="articles.html?category=生活随笔" class="badge-custom">生活随笔</a>
+                        <a href="articles.html?category=影视悟道" class="badge-custom">影视悟道</a>
+                    </div>
+                </div>
+
+                <!-- 热门推荐模块 -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">热门杂谈</h3>
+                    <ul class="hot-list">
+                        <li><a href="articles/article-detail-tech-1.html">10个程序员必备的“修仙工具”，效率飞升！</a></li>
+                        <li><a href="articles/article-detail-study-1.html">Java修仙之路：从入门到渡劫（基础语法篇）</a></li>
+                        <li><a href="articles/article-detail-movie-2.html">《大爱仙尊》观后感：利己与利他的玄幻哲学</a></li>
+                        <li><a href="articles/article-detail-study-2.html">前端小白如何快速掌握Bootstrap？</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. 页脚区域：包含版权信息和备案号 -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">闲者杂谈 · 闲敲棋子落灯花，漫谈江湖与尘沙</p>
+            <p class="footer-copyright">闲云野鹤 版权所有</p>
+            <p class="footer-copyright"><a
+                    href="https://beian.miit.gov.cn/?spm=5176.30371578.J_4NWEMkQ5nDwOgLi8EJmHs.60.4207154anbiqMl#/Integrated/index"
+                    style="color:white">© 2025 黔 2025056580</a></p>
+        </div>
+    </footer>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/theme-toggle.js"></script>
+</body>
+
+</html>
